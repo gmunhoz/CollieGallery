@@ -1,0 +1,25 @@
+{
+  "name": "CollieGallery",
+  "version": "0.1.0",
+  "summary": "A short description of CollieGallery.",
+  "description": "",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/CollieGallery",
+  "license": "MIT",
+  "authors": {
+    "Guilherme Munhoz": "g.araujo.munhoz@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/CollieGallery.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "CollieGallery": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}
