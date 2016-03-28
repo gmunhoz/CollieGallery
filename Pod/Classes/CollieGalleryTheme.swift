@@ -28,7 +28,7 @@ public enum CollieGalleryTheme {
     case Dark
     case Light
     
-    var backgroundColor: UIColor {
+    internal var backgroundColor: UIColor {
         switch self {
         case .Custom(let appearance):
             return appearance.backgroundColor
@@ -39,7 +39,7 @@ public enum CollieGalleryTheme {
         }
     }
     
-    var progressBarColor: UIColor {
+    internal var progressBarColor: UIColor {
         switch self {
         case .Custom(let appearance):
             return appearance.progressBarColor
@@ -50,7 +50,7 @@ public enum CollieGalleryTheme {
         }
     }
     
-    var closeButtonColor: UIColor {
+    internal var closeButtonColor: UIColor {
         switch self {
         case .Custom(let appearance):
             return appearance.closeButtonColor
@@ -61,7 +61,7 @@ public enum CollieGalleryTheme {
         }
     }
     
-    var progressIndicatorColor: UIColor {
+    internal var progressIndicatorColor: UIColor {
         switch self {
         case .Custom(let appearance):
             return appearance.activityIndicatorColor

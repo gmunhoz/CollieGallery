@@ -28,7 +28,7 @@ public enum CollieGalleryTransitionType
     case Default
     case None
     
-    var transition: CollieGalleryTransitionProtocol? {
+    internal var transition: CollieGalleryTransitionProtocol? {
         switch self {
         case .None:
             return nil
@@ -37,7 +37,7 @@ public enum CollieGalleryTransitionType
         }
     }
     
-    var animated: Bool {
+    internal var animated: Bool {
         switch self {
         case .None:
             return false

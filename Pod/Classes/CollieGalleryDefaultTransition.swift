@@ -23,7 +23,7 @@
 
 import UIKit
 
-public class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
+internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
     
     // MARK: - Private properties
     private let minorScale = CGAffineTransformMakeScale(0.1, 0.1)

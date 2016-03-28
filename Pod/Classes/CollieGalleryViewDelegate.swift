@@ -23,7 +23,7 @@
 
 import UIKit
 
-protocol CollieGalleryViewDelegate {
+internal protocol CollieGalleryViewDelegate {
     func galleryViewTapped(galleryView: CollieGalleryView)
     func galleryViewPressed(galleryView: CollieGalleryView)
     func galleryViewDidZoomIn(galleryView: CollieGalleryView)
