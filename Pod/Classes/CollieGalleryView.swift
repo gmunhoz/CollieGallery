@@ -101,7 +101,7 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     private func setupActivityIndicatorView() {
         self.activityIndicator = UIActivityIndicatorView()
         self.activityIndicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-        self.activityIndicator.center = self.center
+        self.activityIndicator.center = self.imageView.center
         self.activityIndicator.hidesWhenStopped = true
         self.activityIndicator.color = self.theme.progressIndicatorColor
 
