@@ -91,6 +91,22 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         self.setupView()
     }
     
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if !UIApplication.sharedApplication().statusBarHidden {
+            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
+        }
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if UIApplication.sharedApplication().statusBarHidden {
+            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)
+        }
+    }
+    
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         self.clearImagesFarFromIndex(self.currentPageIndex)
