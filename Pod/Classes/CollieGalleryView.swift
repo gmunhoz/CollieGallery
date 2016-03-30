@@ -207,6 +207,12 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
                 self.updateImageViewSize()
                 
             } else if let url = self.picture.url {
+                
+                if let placeholder = self.picture.placeholder {
+                    self.imageView.image = placeholder
+                    self.updateImageViewSize()
+                }
+                
                 self.activityIndicator.startAnimating()
                 
                 let request: NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)

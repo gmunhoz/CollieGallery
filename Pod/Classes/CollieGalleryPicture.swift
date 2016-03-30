@@ -28,6 +28,7 @@ public class CollieGalleryPicture: NSObject {
     // MARK: - Internal properties
     internal var image: UIImage!
     internal var url: String!
+    internal var placeholder: UIImage?
     
     
     // MARK: - Initializers
@@ -36,8 +37,9 @@ public class CollieGalleryPicture: NSObject {
         self.image = image
     }
     
-    public convenience init(url: String) {
+    public convenience init(url: String, placeholder: UIImage? = nil) {
         self.init()
         self.url = url
+        self.placeholder = placeholder
     }
 }
