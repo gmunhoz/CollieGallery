@@ -26,12 +26,15 @@ import UIKit
 public enum CollieGalleryTransitionType
 {
     case Default
+    case Zoom(fromView: UIView, zoomTransitionDelegate: CollieGalleryZoomTransitionDelegate)
     case None
     
     internal var transition: CollieGalleryTransitionProtocol? {
         switch self {
         case .None:
             return nil
+        case .Zoom(let fromView, let zoomTransitionDelegate):
+            return CollieGalleryZoomTransition(fromView: fromView, zoomTransitionDelegate: zoomTransitionDelegate)
         default:
             return CollieGalleryDefaultTransition()
         }
@@ -43,6 +46,15 @@ public enum CollieGalleryTransitionType
             return false
         default:
             return true
+        }
+    }
+    
+    internal var fromView: UIView? {
+        switch self {
+        case .Zoom(let fromView, _):
+            return fromView
+        default:
+            return nil
         }
     }
     

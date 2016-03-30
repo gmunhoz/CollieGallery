@@ -46,7 +46,7 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
     
     // MARK: - Internal functions
     internal func handlePan(pan: UIPanGestureRecognizer){
-        if self.transitionType != CollieGalleryTransitionType.None {
+        if self.transitionType.transition != nil {
             let translation = pan.translationInView(pan.view!)
             let velocity = pan.velocityInView(pan.view!)
             

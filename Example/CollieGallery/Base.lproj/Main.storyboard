@@ -55,14 +55,27 @@
                                     <action selector="showWithRemoteImagesTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nfP-Vl-lsN"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7P-rw-Ebb">
+                                <rect key="frame" x="111" y="440" width="99" height="71"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="71" id="AW5-zf-fQJ"/>
+                                    <constraint firstAttribute="width" constant="99" id="chq-H7-ifl"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="1"/>
+                                <connections>
+                                    <action selector="showFromImageTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="vZc-Yc-QRx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="I7P-rw-Ebb" secondAttribute="bottom" constant="8" id="5fu-Bx-6eH"/>
                             <constraint firstItem="hxg-1D-f2N" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="7K6-qW-tjy"/>
                             <constraint firstItem="hxg-1D-f2N" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="DY0-0v-q7r"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="top" secondItem="hxg-1D-f2N" secondAttribute="bottom" constant="30" id="Mn0-jm-Jgh"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="P76-ca-oVx"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="top" secondItem="Gek-Lh-tXH" secondAttribute="bottom" constant="8" id="dSE-0j-UiT"/>
+                            <constraint firstItem="I7P-rw-Ebb" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="fQV-oG-RWS"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="hw0-Je-ppO"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="k1c-rU-qxw"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="r78-7H-JQi"/>
@@ -71,6 +84,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="HKx-kT-eeU"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="imageButton" destination="I7P-rw-Ebb" id="H4z-g5-Lqz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
@@ -126,7 +142,7 @@
                             <tableViewSection footerTitle="Indicates whether images could be zoomed" id="1B9-o4-B9m" userLabel="enableZoom">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ys3-GA-0iz">
-                                        <rect key="frame" x="0.0" y="204" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="202" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ys3-GA-0iz" id="wnW-8u-jM7">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -164,7 +180,7 @@
                             <tableViewSection footerTitle="The maximum scale that images can reach when zoomed" id="1mV-RC-vZy" userLabel="maxZoomScale">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="NXk-2S-9Ro">
-                                        <rect key="frame" x="0.0" y="293" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="291" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NXk-2S-9Ro" id="Bxy-zB-Hj9">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
@@ -211,7 +227,7 @@
                             <tableViewSection footerTitle="The amount of pictures that should be preloaded next to the current displayed picture" id="cus-An-SvW" userLabel="preLoadedImages">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="x2J-Jl-71U">
-                                        <rect key="frame" x="0.0" y="438" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="434" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x2J-Jl-71U" id="yxU-aH-xnD">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
@@ -258,7 +274,7 @@
                             <tableViewSection footerTitle="The amount of the parallax effect from 0 to 1" id="vHY-cg-yNt" userLabel="parallaxFactor">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="o3h-tS-Ign">
-                                        <rect key="frame" x="0.0" y="583" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="577" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o3h-tS-Ign" id="CK2-vv-zFi">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
@@ -305,7 +321,7 @@
                             <tableViewSection footerTitle="Indicates if the user should be able to save the picture" id="uRG-cA-STP" userLabel="enableSave">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="izx-pL-wcV">
-                                        <rect key="frame" x="0.0" y="712" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="706" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="izx-pL-wcV" id="ks2-3F-aCl">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -343,7 +359,7 @@
                             <tableViewSection footerTitle="Indicates if the user should be able to dismiss the gallery interactively with a pan gesture" id="MYd-7H-epp" userLabel="enableInteractiveDismiss">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="y07-bp-els">
-                                        <rect key="frame" x="0.0" y="817" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="809" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y07-bp-els" id="YAV-Ou-MWo">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -381,7 +397,7 @@
                             <tableViewSection footerTitle="The space between each scrollview's page" id="9Zl-pJ-1H9" userLabel="gapBetweenImages">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="x8N-H7-aPq">
-                                        <rect key="frame" x="0.0" y="922" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="912" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x8N-H7-aPq" id="Tfh-I5-pk7">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
@@ -568,7 +584,7 @@
                             <tableViewSection footerTitle="Indicates the type of transition that the gallery should use to be presented and dismissed." id="0Nu-0j-ogm" userLabel="parallaxFactor">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="84" id="2ea-v2-e4C">
-                                        <rect key="frame" x="0.0" y="308" width="320" height="84"/>
+                                        <rect key="frame" x="0.0" y="298" width="320" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ea-v2-e4C" id="bZs-Si-cdU">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="83"/>
@@ -623,6 +639,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="1" width="586" height="440"/>
         <image name="broom" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>

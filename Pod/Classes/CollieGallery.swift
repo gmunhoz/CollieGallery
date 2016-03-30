@@ -31,7 +31,6 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     private var theme = CollieGalleryTheme.Dark
     private var pictures: [CollieGalleryPicture] = []
     private var pictureViews: [CollieGalleryView] = []
-    private var currentPageIndex: Int = 0
     private var isShowingLandscapeView: Bool {
         let orientation = UIApplication.sharedApplication().statusBarOrientation
         
@@ -52,20 +51,21 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             return self.pictureViews[self.currentPageIndex]
         }
     }
-    private var displayedImageView: UIImageView {
-        get {
-            return self.displayedView.imageView
-        }
-    }
+    
     
     
     // MARK: - Public properties
+    public var currentPageIndex: Int = 0
     public var pagingScrollView: UIScrollView!
     public var closeButton: UIButton!
     public var actionButton: UIButton?
     public var progressTrackView: UIView?
     public var progressBarView: UIView?
-
+    public var displayedImageView: UIImageView {
+        get {
+            return self.displayedView.imageView
+        }
+    }
     
     // MARK: - Initializers
     required public init?(coder aDecoder: NSCoder) {

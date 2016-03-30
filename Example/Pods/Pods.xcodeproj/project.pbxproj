@@ -85,6 +85,7 @@
 		E987D002407E23757DD60918918A2B62 /* World+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 94A039912FDC46FCB2AF6DCEEB91ADB4 /* World+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		EB14C1171C8E6FF50031FF30 /* CollieGalleryTransitionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB14C1161C8E6FF50031FF30 /* CollieGalleryTransitionType.swift */; };
 		EB55BA031C9A3DA60014E83C /* CollieGalleryViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB55BA021C9A3DA60014E83C /* CollieGalleryViewDelegate.swift */; };
+		EB5C25E31CA8CC3C000E9A71 /* CollieGalleryZoomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5C25E21CA8CC3C000E9A71 /* CollieGalleryZoomTransition.swift */; };
 		EB9674D41C891B1A0011AD80 /* CollieGalleryTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9674D31C891B1A0011AD80 /* CollieGalleryTransitionManager.swift */; };
 		EBA031B41C8FA02E00D52780 /* CollieGalleryTransitionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA031B31C8FA02E00D52780 /* CollieGalleryTransitionProtocol.swift */; };
 		EBA031B61C8FA2A800D52780 /* CollieGalleryDefaultTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA031B51C8FA2A800D52780 /* CollieGalleryDefaultTransition.swift */; };
@@ -244,6 +245,7 @@
 		E7C11983008ECB8AF184E3DF3460DAD4 /* Pods_CollieGallery_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CollieGallery_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB14C1161C8E6FF50031FF30 /* CollieGalleryTransitionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryTransitionType.swift; sourceTree = "<group>"; };
 		EB55BA021C9A3DA60014E83C /* CollieGalleryViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryViewDelegate.swift; sourceTree = "<group>"; };
+		EB5C25E21CA8CC3C000E9A71 /* CollieGalleryZoomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryZoomTransition.swift; sourceTree = "<group>"; };
 		EB9674D31C891B1A0011AD80 /* CollieGalleryTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryTransitionManager.swift; sourceTree = "<group>"; };
 		EBA031B31C8FA02E00D52780 /* CollieGalleryTransitionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryTransitionProtocol.swift; sourceTree = "<group>"; };
 		EBA031B51C8FA2A800D52780 /* CollieGalleryDefaultTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieGalleryDefaultTransition.swift; sourceTree = "<group>"; };
@@ -581,6 +583,7 @@
 			children = (
 				EB55BA041C9A46450014E83C /* Base */,
 				EBA031B51C8FA2A800D52780 /* CollieGalleryDefaultTransition.swift */,
+				EB5C25E21CA8CC3C000E9A71 /* CollieGalleryZoomTransition.swift */,
 			);
 			name = Transitions;
 			sourceTree = "<group>";
@@ -931,6 +934,7 @@
 			files = (
 				EB14C1171C8E6FF50031FF30 /* CollieGalleryTransitionType.swift in Sources */,
 				EBA031B41C8FA02E00D52780 /* CollieGalleryTransitionProtocol.swift in Sources */,
+				EB5C25E31CA8CC3C000E9A71 /* CollieGalleryZoomTransition.swift in Sources */,
 				EBA031B61C8FA2A800D52780 /* CollieGalleryDefaultTransition.swift in Sources */,
 				E30A2C89E2ECBF60F3BA94E8EC22E756 /* CollieGallery-dummy.m in Sources */,
 				EB55BA031C9A3DA60014E83C /* CollieGalleryViewDelegate.swift in Sources */,
