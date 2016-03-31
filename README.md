@@ -6,7 +6,7 @@
 
 CollieGallery is a fullscreen image gallery with support for local and remote images and it has a lot of built-in features like zooming, panning, interactive transitions and more! The gallery is highly customizable and it’s really easy to make it look and work the way you want.
 
-![Interactive Transition](Docs/Images/Interactive Transition.gif) 
+![Interactive Transition](Docs/Images/InteractiveTransition.gif) 
 ![Paging](Docs/Images/Paging.gif)
 ![Zoom](Docs/Images/Zoom.gif) 
 
@@ -143,7 +143,7 @@ gallery.presentInViewController(self, CollieGalleryTransitionType.Default)
 
 #### Zoom Transition
 
-![Interactive Transition](Docs/Images/Zoom Transition.gif)
+![Interactive Transition](Docs/Images/ZoomTransition.gif)
 
 To use the zoom transition you need to folow these steps:
 
