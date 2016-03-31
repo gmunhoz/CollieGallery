@@ -31,6 +31,11 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     var scrollView: UIScrollView!
     var imageView: UIImageView!
     var activityIndicator: UIActivityIndicatorView!
+    var isZoomed: Bool {
+        get {
+            return self.scrollView.zoomScale > self.scrollView.minimumZoomScale
+        }
+    }
     
     
     // MARK: - Private properties

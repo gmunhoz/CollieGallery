@@ -56,7 +56,7 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
             switch (pan.state) {
                 
             case UIGestureRecognizerState.Began:
-                if self.enableInteractiveTransition && velocity.y < 0 {
+                if self.enableInteractiveTransition && velocity.y < 0 && !self.targetViewController.displayedView.isZoomed {
                     self.interactive = true
                     self.targetViewController.dismissViewControllerAnimated(true, completion: nil)
                 }

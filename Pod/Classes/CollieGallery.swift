@@ -46,7 +46,9 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             return !self.closeButton.hidden
         }
     }
-    private var displayedView: CollieGalleryView {
+    
+    // MARK: - Internal properties
+    internal var displayedView: CollieGalleryView {
         get {
             return self.pictureViews[self.currentPageIndex]
         }

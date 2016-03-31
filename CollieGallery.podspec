@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = "CollieGallery"
-  s.version          = "0.1.1"
+  s.version          = "0.2.0"
   s.summary          = "Easy-to-use and highly customizable fullscreen image gallery with support for local and remote images written in Swift."
 
   s.description      = <<-DESC
-    CollieGallery is a fullscreen image gallery with support for local and remote images and it has a lot of built-in features like zooming, panning, interactive transitions and more! The gallery is highly customizable and it’s so really easy to make it look and work the way you want.
+    CollieGallery is a fullscreen image gallery with support for local and remote images and it has a lot of built-in features like zooming, panning, interactive transitions and more! The gallery is highly customizable and it’s really easy to make it look and work the way you want.
 DESC
 
   s.homepage         = "https://github.com/gmunhoz/CollieGallery"

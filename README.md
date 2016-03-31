@@ -4,6 +4,12 @@
 [![License](https://img.shields.io/cocoapods/l/CollieGallery.svg?style=flat)](http://cocoapods.org/pods/CollieGallery)
 [![Platform](https://img.shields.io/cocoapods/p/CollieGallery.svg?style=flat)](http://cocoapods.org/pods/CollieGallery)
 
+CollieGallery is a fullscreen image gallery with support for local and remote images and it has a lot of built-in features like zooming, panning, interactive transitions and more! The gallery is highly customizable and it’s really easy to make it look and work the way you want.
+
+![Interactive Transition](Docs/Images/Interactive Transition.gif) 
+![Paging](Docs/Images/Paging.gif)
+![Zoom](Docs/Images/Zoom.gif) 
+
 ## Installation
 
 CollieGallery is available through [CocoaPods](http://cocoapods.org). To install
@@ -135,9 +141,47 @@ To change the transition that is used to present and dismiss the gallery you sho
 gallery.presentInViewController(self, CollieGalleryTransitionType.Default)
 ```
 
+#### Zoom Transition
+
+![Interactive Transition](Docs/Images/Zoom Transition.gif)
+
+To use the zoom transition you need to folow these steps:
+
+1. Indicate that your view controller will implement the `CollieGalleryZoomTransitionDelegate`:
+
+	```swift
+	class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate {
+	```
+2. Implement the `CollieGalleryZoomTransitionDelegate` methods:
+
+	- Indicate the bounds where the image could be dismissed with the zoom effect:
+	
+		```swift
+		func zoomTransitionContainerBounds() -> CGRect {
+			return self.view.frame
+		}
+		```
+	- Indicate to which view the picture will be zoomed out when dismissed:
+	
+		```swift
+		func zoomTransitionViewToDismissForIndex(index: Int) -> UIView?
+			return self.imageViews[index]
+		}
+		```
+3. Present the gallery indicating from which view the gallery will be zoomed in and passing the view controller as delegate:
+
+	```swift
+	let zoomTransition = CollieGalleryTransitionType.Zoom(fromView: aView, zoomTransitionDelegate: self)
+	gallery.presentInViewController(self, transitionType: zoomTransition)
+	```
+
 ## Requirements
 
 * iOS 8.0
+
+## Changelog
+
+See [`CHANGELOG.md`](https://github.com/gmunhoz/CollieGallery/blob/master/CHANGELOG.md).
 
 ## Author
 
