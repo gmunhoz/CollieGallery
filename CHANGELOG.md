@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.2.1)
+- Bug fixes:
+  - Fixing a bug where the action sheet doesn't display as a PopOver [(Issue #2)](https://github.com/gmunhoz/CollieGallery/issues/2)
+
 ## [0.2.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.2.0)
 - New features:
   - New transition type: Zoom

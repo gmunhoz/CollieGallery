@@ -46,6 +46,8 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             return !self.closeButton.hidden
         }
     }
+    private var alertController: UIAlertController!
+    
     
     // MARK: - Internal properties
     internal var displayedView: CollieGalleryView {
@@ -53,7 +55,6 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             return self.pictureViews[self.currentPageIndex]
         }
     }
-    
     
     
     // MARK: - Public properties
@@ -246,6 +247,12 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             progressTrackView.frame = self.getProgressViewFrame(avaiableSize)
         }
         
+        var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
+        popOverPresentationRect.origin.x += popOverPresentationRect.size.width
+        
+        self.alertController.popoverPresentationController?.sourceView = self.view
+        self.alertController.popoverPresentationController?.sourceRect = popOverPresentationRect
+        
         self.setupCloseButton()
         self.setupActionButton()
         self.updateContentOffset()
@@ -381,7 +388,14 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     }
     
     internal func showActionsMenu() {
-        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+        self.alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+        
+        var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
+        popOverPresentationRect.origin.x += popOverPresentationRect.size.width
+        
+        self.alertController.popoverPresentationController?.sourceView = self.view
+        self.alertController.popoverPresentationController?.sourceRect = popOverPresentationRect
+        self.alertController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
         
         let saveAction = UIAlertAction(title: "Save", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
@@ -389,15 +403,14 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             self.savePicture()
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: {
-            (alert: UIAlertAction!) -> Void in
-            print("Cancelled")
-        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
-        optionMenu.addAction(saveAction)
-        optionMenu.addAction(cancelAction)
+        self.alertController.addAction(saveAction)
+        self.alertController.addAction(cancelAction)
         
-        self.presentViewController(optionMenu, animated: true, completion: nil)
+        self.presentViewController(self.alertController, animated: true, completion: nil)
+        
+        self.alertController.view.layoutIfNeeded()
     }
     
     internal func savePicture() {
@@ -410,7 +423,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     internal func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
         if error == nil {
-            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .Alert)
+            let ac = UIAlertController(title: "Saved!", message: "The image has been saved to your photos.", preferredStyle: .Alert)
             ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(ac, animated: true, completion: nil)
         } else {
@@ -456,6 +469,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     func galleryViewPressed(scrollview: CollieGalleryView) {
         if self.options.enableSave {
+            self.showControls()
             self.showActionsMenu()
         }
     }
