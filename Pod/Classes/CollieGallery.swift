@@ -250,8 +250,8 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
         popOverPresentationRect.origin.x += popOverPresentationRect.size.width
         
-        self.alertController.popoverPresentationController?.sourceView = self.view
-        self.alertController.popoverPresentationController?.sourceRect = popOverPresentationRect
+        self.alertController?.popoverPresentationController?.sourceView = self.view
+        self.alertController?.popoverPresentationController?.sourceRect = popOverPresentationRect
         
         self.setupCloseButton()
         self.setupActionButton()
