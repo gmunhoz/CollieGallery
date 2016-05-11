@@ -1,8 +1,15 @@
 # Changelog
 
+## [0.3.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.0)
+- New features:
+  - Title and caption support
+  - Now you can share the picture instead of only saving. [(Issue #4)](https://github.com/gmunhoz/CollieGallery/issues/4)
+  - You can create custom actions with your own code and add it to the actions menu! [(Issue #1)](https://github.com/gmunhoz/CollieGallery/issues/1)
+  - New CollieGalleryDelegate functions [(Issue #1)](https://github.com/gmunhoz/CollieGallery/issues/1)
+
 ## [0.2.2](https://github.com/gmunhoz/CollieGallery/releases/tag/0.2.2)
 - Bug fixes:
-- Fixing a bug where the application crashes when the device is rotated. [(Issue #3)](https://github.com/gmunhoz/CollieGallery/issues/3)
+  - Fixing a bug where the application crashes when the device is rotated. [(Issue #3)](https://github.com/gmunhoz/CollieGallery/issues/3)
 
 ## [0.2.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.2.1)
 - Bug fixes:

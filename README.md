@@ -39,8 +39,12 @@ CollieGallery is really easy to use! You just need to follow these steps:
 	
 		```swift
 		let image = UIImage(named: "example")!
+		
 		let picture = CollieGalleryPicture(image: image)
 		pictures.append(picture)
+		
+		let pictureWithCaption = CollieGalleryPicture(image: image, title: "Collie Picuture", caption: "Picture with caption"))
+		pictures.append(pictureWithCaption)
 		```
 		
 	* Creating from a remote url:
@@ -66,6 +70,14 @@ CollieGallery is really easy to use! You just need to follow these steps:
 	gallery.scrollToIndex(5)
 	```
 
+## Delegate Functions
+
+* CollieGalleryDelegate:
+
+```swift
+optional func gallery(gallery: CollieGallery, indexChangedTo index: Int)
+```
+
 ## Customization
 
 ### Options
@@ -80,6 +92,8 @@ The available options for customization are:
 * *gapBetweenPages*: The space between each scrollview's page.
 * *enableSave*: Indicates if the user should be able to save the picture.
 * *enableInteractiveDismiss*: Indicates if the user should be able to dismiss the gallery interactively with a pan gesture.
+* *customActions*: Array with your custom actions that will be displayed in the actions dialog.
+* *excludedActions*: Array with the system actions that should not be displayed in the actions dialog.
 
 
 To change the way CollieGallery works you should use the CollieGalleryOptions class. You can change the options in two ways:
@@ -174,6 +188,41 @@ To use the zoom transition you need to folow these steps:
 	let zoomTransition = CollieGalleryTransitionType.Zoom(fromView: aView, zoomTransitionDelegate: self)
 	gallery.presentInViewController(self, transitionType: zoomTransition)
 	```
+
+### Custom Actions
+
+![Custom Action](Docs/Images/CustomAction.png)
+
+To create your own actions just follow the next example:
+
+```swift
+let options = CollieGalleryOptions()
+
+let customAction = CollieGalleryCustomAction(title: "Custom Action", imageName: "imageName") { () -> () in
+    print("Custom Action Tapped!")
+}
+
+options.customActions = [customAction]
+
+let gallery = CollieGallery(pictures: pictures, options: options)
+```
+
+
+### Excluded Actions
+
+To remove default actions from the dialog just follow the next example:
+
+```swift
+let options = CollieGalleryOptions()
+        
+let customAction = CollieGalleryCustomAction(title: "Custom Action", imageName: "settings") { () -> () in
+    print("Custom Action Tapped!")
+}
+
+options.excludedActions = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint]
+
+let gallery = CollieGallery(pictures: pictures, options: options)
+```
 
 ## Requirements
 

@@ -27,7 +27,6 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     // MARK: - Private properties
     private let transitionManager = CollieGalleryTransitionManager()
-    private var options = CollieGalleryOptions()
     private var theme = CollieGalleryTheme.Dark
     private var pictures: [CollieGalleryPicture] = []
     private var pictureViews: [CollieGalleryView] = []
@@ -46,10 +45,11 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             return !self.closeButton.hidden
         }
     }
-    private var alertController: UIAlertController!
+    private var activityController: UIActivityViewController!
     
     
     // MARK: - Internal properties
+    internal var options = CollieGalleryOptions()
     internal var displayedView: CollieGalleryView {
         get {
             return self.pictureViews[self.currentPageIndex]
@@ -58,12 +58,14 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Public properties
+    public var delegate: CollieGalleryDelegate?
     public var currentPageIndex: Int = 0
     public var pagingScrollView: UIScrollView!
     public var closeButton: UIButton!
     public var actionButton: UIButton?
     public var progressTrackView: UIView?
     public var progressBarView: UIView?
+    public var captionView: CollieGalleryCaptionView!
     public var displayedImageView: UIImageView {
         get {
             return self.displayedView.imageView
@@ -100,6 +102,21 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         if !UIApplication.sharedApplication().statusBarHidden {
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
         }
+        
+        
+    }
+    
+    public override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.updateCaptionText()
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.captionView.layoutIfNeeded()
+        self.captionView.setNeedsLayout()
     }
     
     public override func viewWillDisappear(animated: Bool) {
@@ -140,11 +157,14 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             self.setupActionButton()
         }
         
+        self.setupCaptionView()
+        
         if self.options.showProgress {
             self.setupProgressIndicator()
         }
         
         self.loadImagesNextToIndex(self.currentPageIndex)
+        
     }
     
     private func setupScrollView() {
@@ -185,12 +205,25 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         let avaiableSize = self.getInitialAvaiableSize()
         let closeButtonFrame = self.getCloseButtonFrame(avaiableSize)
         
-        self.closeButton = UIButton(frame: closeButtonFrame)
-        self.closeButton.setTitle("+", forState: .Normal)
-        self.closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-        self.closeButton.setTitleColor(self.theme.closeButtonColor, forState: UIControlState.Normal)
-        self.closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
-        self.closeButton.addTarget(self, action: "closeButtonTouched:", forControlEvents: .TouchUpInside)
+        
+        let closeButton = UIButton(frame: closeButtonFrame)
+        closeButton.setTitle("+", forState: .Normal)
+        closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+        closeButton.setTitleColor(self.theme.closeButtonColor, forState: UIControlState.Normal)
+        closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
+        closeButton.addTarget(self, action: "closeButtonTouched:", forControlEvents: .TouchUpInside)
+        
+        var shouldBeHidden = false
+        
+        if self.closeButton != nil {
+            shouldBeHidden = self.closeButton.hidden
+        }
+        
+        closeButton.hidden = shouldBeHidden
+        
+        
+        self.closeButton = closeButton
+        
         self.view.addSubview(self.closeButton)
     }
     
@@ -207,6 +240,17 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         actionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
         actionButton.setTitleColor(self.theme.closeButtonColor, forState: UIControlState.Normal)
         actionButton.addTarget(self, action: "actionButtonTouched:", forControlEvents: .TouchUpInside)
+        
+        
+        var shouldBeHidden = false
+        
+        if self.actionButton != nil {
+            shouldBeHidden = self.actionButton!.hidden
+        }
+        
+        actionButton.hidden = shouldBeHidden
+        
+        
         self.actionButton = actionButton
         
         self.view.addSubview(actionButton)
@@ -234,6 +278,16 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
+    private func setupCaptionView() {
+        let avaiableSize = self.getInitialAvaiableSize()
+        let captionViewFrame = self.getCaptionViewFrame(avaiableSize)
+        
+        let captionView = CollieGalleryCaptionView(frame: captionViewFrame)
+        self.captionView = captionView
+        
+        self.view.addSubview(captionView)
+    }
+    
     private func updateView(avaiableSize: CGSize) {
         self.pagingScrollView.frame = self.getScrollViewFrame(avaiableSize)
         self.pagingScrollView.contentSize = self.getScrollViewContentSize(self.pagingScrollView.frame)
@@ -250,12 +304,15 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
         popOverPresentationRect.origin.x += popOverPresentationRect.size.width
         
-        self.alertController?.popoverPresentationController?.sourceView = self.view
-        self.alertController?.popoverPresentationController?.sourceRect = popOverPresentationRect
+        self.activityController?.popoverPresentationController?.sourceView = self.view
+        self.activityController?.popoverPresentationController?.sourceRect = popOverPresentationRect
         
         self.setupCloseButton()
         self.setupActionButton()
+        
         self.updateContentOffset()
+        
+        self.updateCaptionText()
     }
     
     private func loadImagesNextToIndex(index: Int) {
@@ -339,11 +396,13 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         self.closeButton.hidden = false
         self.actionButton?.hidden = false
         self.progressTrackView?.hidden = false
+        self.captionView.hidden = self.captionView.titleLabel.text == nil && self.captionView.captionLabel.text == nil
         
         UIView.animateWithDuration(0.2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             self.closeButton.alpha = 1.0
             self.actionButton?.alpha = 1.0
             self.progressTrackView?.alpha = 1.0
+            self.captionView.alpha = 1.0
             
             }, completion: nil)
     }
@@ -353,12 +412,18 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             self.closeButton.alpha = 0.0
             self.actionButton?.alpha = 0.0
             self.progressTrackView?.alpha = 0.0
+            self.captionView.alpha = 0.0
             
             }, completion: { (finished: Bool) -> Void in
                 self.closeButton.hidden = true
                 self.actionButton?.hidden = true
                 self.progressTrackView?.hidden = true
+                self.captionView.hidden = true
         })
+    }
+    
+    private func getCaptionViewFrame(availableSize: CGSize) -> CGRect {
+        return CGRectMake(0.0, availableSize.height - 70, availableSize.width, 70)
     }
     
     private func getProgressViewFrame(avaiableSize: CGSize) -> CGRect {
@@ -377,6 +442,21 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         return CGRectMake(avaiableSize.width - 50, 0, 50, 50)
     }
     
+    private func getCustomButtonFrame(avaiableSize: CGSize, forIndex index: Int) -> CGRect {
+        let position = index + 2
+        
+        return CGRectMake(avaiableSize.width - CGFloat(50 * position), 0, 50, 50)
+    }
+    
+    private func updateCaptionText () {
+        let picture = self.pictures[self.currentPageIndex]
+        
+        self.captionView.titleLabel.text = picture.title
+        self.captionView.captionLabel.text = picture.caption
+        
+        self.captionView.adjustView()
+    }
+    
     
     // MARK: - Internal functions
     internal func closeButtonTouched(sender: AnyObject) {
@@ -384,52 +464,27 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     }
     
     internal func actionButtonTouched(sender: AnyObject) {
-        self.showActionsMenu()
+        self.showShareActivity()
     }
     
-    internal func showActionsMenu() {
-        self.alertController = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
-        
-        var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
-        popOverPresentationRect.origin.x += popOverPresentationRect.size.width
-        
-        self.alertController.popoverPresentationController?.sourceView = self.view
-        self.alertController.popoverPresentationController?.sourceRect = popOverPresentationRect
-        self.alertController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
-        
-        let saveAction = UIAlertAction(title: "Save", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
+    internal func showShareActivity() {
+        if let image = displayedImageView.image {
+            let objectsToShare = [image]
             
-            self.savePicture()
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        self.alertController.addAction(saveAction)
-        self.alertController.addAction(cancelAction)
-        
-        self.presentViewController(self.alertController, animated: true, completion: nil)
-        
-        self.alertController.view.layoutIfNeeded()
-    }
-    
-    internal func savePicture() {
-        let imageView = self.pictureViews[self.currentPageIndex].imageView
-        
-        if let image = imageView.image {
-            UIImageWriteToSavedPhotosAlbum(image, self, "image:didFinishSavingWithError:contextInfo:", nil)
-        }
-    }
-    
-    internal func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
-        if error == nil {
-            let ac = UIAlertController(title: "Saved!", message: "The image has been saved to your photos.", preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
-        } else {
-            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+            self.activityController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: self.options.customActions)
+            
+            self.activityController.excludedActivityTypes = self.options.excludedActions
+            
+            var popOverPresentationRect = self.getActionButtonFrame(self.view.frame.size)
+            popOverPresentationRect.origin.x += popOverPresentationRect.size.width
+            
+            self.activityController.popoverPresentationController?.sourceView = self.view
+            self.activityController.popoverPresentationController?.sourceRect = popOverPresentationRect
+            self.activityController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
+            
+            self.presentViewController(self.activityController, animated: true, completion: nil)
+            
+            self.activityController.view.layoutIfNeeded()
         }
     }
     
@@ -451,9 +506,15 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        
+        if page != currentPageIndex {
+            self.delegate?.gallery?(self, indexChangedTo: page)
+        }
+        
         currentPageIndex = page
         self.loadImagesNextToIndex(self.currentPageIndex)
-        self.displayedImageView
+        
+        updateCaptionText()
     }
 
     
@@ -470,7 +531,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     func galleryViewPressed(scrollview: CollieGalleryView) {
         if self.options.enableSave {
             self.showControls()
-            self.showActionsMenu()
+            self.showShareActivity()
         }
     }
     

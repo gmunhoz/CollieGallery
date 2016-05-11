@@ -66,19 +66,36 @@
                                     <action selector="showFromImageTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="vZc-Yc-QRx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYY-GG-Y0E">
+                                <rect key="frame" x="16" y="230" width="288" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Aap-li-7Ga"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <state key="normal" title="Show with custom action">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showWithCustomButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ifw-7Y-hgy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="I7P-rw-Ebb" secondAttribute="bottom" constant="8" id="5fu-Bx-6eH"/>
                             <constraint firstItem="hxg-1D-f2N" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="7K6-qW-tjy"/>
                             <constraint firstItem="hxg-1D-f2N" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="DY0-0v-q7r"/>
+                            <constraint firstItem="xYY-GG-Y0E" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="16" id="Kh8-yE-pw9"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="top" secondItem="hxg-1D-f2N" secondAttribute="bottom" constant="30" id="Mn0-jm-Jgh"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="P76-ca-oVx"/>
+                            <constraint firstItem="xYY-GG-Y0E" firstAttribute="top" secondItem="6P2-Wz-qNJ" secondAttribute="bottom" constant="8" id="dGw-rh-VWf"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="top" secondItem="Gek-Lh-tXH" secondAttribute="bottom" constant="8" id="dSE-0j-UiT"/>
                             <constraint firstItem="I7P-rw-Ebb" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="fQV-oG-RWS"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="hw0-Je-ppO"/>
                             <constraint firstItem="6P2-Wz-qNJ" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="k1c-rU-qxw"/>
                             <constraint firstItem="Gek-Lh-tXH" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="r78-7H-JQi"/>
+                            <constraint firstAttribute="trailing" secondItem="xYY-GG-Y0E" secondAttribute="trailing" constant="16" id="tXT-Gj-cmr"/>
                             <constraint firstItem="hxg-1D-f2N" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="33" id="z8x-YA-bw0"/>
                         </constraints>
                     </view>

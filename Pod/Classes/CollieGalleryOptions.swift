@@ -51,4 +51,10 @@ public class CollieGalleryOptions: NSObject {
     
     /// Indicates if the user should be able to dismiss the gallery interactively with a pan gesture
     public var enableInteractiveDismiss: Bool = true
+    
+    /// Array with the custom buttons
+    public var customActions: [CollieGalleryCustomAction] = []
+    
+    /// Default actions to exclude from the gallery actions (UIActivityType Constants)
+    public var excludedActions: [String] = []
 }

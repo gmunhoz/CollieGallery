@@ -26,7 +26,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>lorempixel.com</key>
+			<key>gmunhoz.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>

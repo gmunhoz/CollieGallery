@@ -42,6 +42,8 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
         presentedController.closeButton.center.x -= self.offStage
         presentedController.actionButton?.center.x += self.offStage
         presentedController.progressTrackView?.center.y += self.offStage
+        presentedController.captionView.center.y += self.offStage
+        
         
         containerView.addSubview(presentedControllerView)
         
@@ -51,6 +53,7 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
             presentedController.closeButton.center.x += self.offStage
             presentedController.actionButton?.center.x -= self.offStage
             presentedController.progressTrackView?.center.y -= self.offStage
+            presentedController.captionView.center.y -= self.offStage
             presentedController.pagingScrollView.transform = CGAffineTransformIdentity
             
             }, completion: {(completed: Bool) -> Void in
@@ -71,6 +74,7 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
             presentingController.closeButton.center.x -= self.offStage
             presentingController.actionButton?.center.x += self.offStage
             presentingController.progressTrackView?.center.y += self.offStage
+            presentingController.captionView.center.y += self.offStage
             presentingController.pagingScrollView.transform = self.minorScale
             
             }, completion: {(completed: Bool) -> Void in

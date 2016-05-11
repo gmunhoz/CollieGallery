@@ -29,17 +29,23 @@ public class CollieGalleryPicture: NSObject {
     internal var image: UIImage!
     internal var url: String!
     internal var placeholder: UIImage?
+    internal var title: String?
+    internal var caption: String?
     
     
     // MARK: - Initializers
-    public convenience init(image: UIImage) {
+    public convenience init(image: UIImage, title: String? = nil, caption: String? = nil) {
         self.init()
         self.image = image
+        self.title = title
+        self.caption = caption
     }
     
-    public convenience init(url: String, placeholder: UIImage? = nil) {
+    public convenience init(url: String, placeholder: UIImage? = nil, title: String? = nil, caption: String? = nil) {
         self.init()
         self.url = url
         self.placeholder = placeholder
+        self.title = title
+        self.caption = caption
     }
 }

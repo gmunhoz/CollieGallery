@@ -56,6 +56,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
         presentedController.closeButton.center.x -= self.offStage
         presentedController.actionButton?.center.x += self.offStage
         presentedController.progressTrackView?.center.y += self.offStage
+        presentedController.captionView.center.y += self.offStage
         
         let fromRect = presentedController.displayedImageView.frame
         let containerBounds = self.zoomTransitionDelegate.zoomTransitionContainerBounds()
@@ -69,6 +70,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
             presentedController.closeButton.center.x += self.offStage
             presentedController.actionButton?.center.x -= self.offStage
             presentedController.progressTrackView?.center.y -= self.offStage
+            presentedController.captionView.center.y -= self.offStage
             presentedController.displayedImageView.transform = CGAffineTransformIdentity
             
             }, completion: {(completed: Bool) -> Void in
@@ -91,6 +93,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
             presentingController.closeButton.center.x -= self.offStage
             presentingController.actionButton?.center.x += self.offStage
             presentingController.progressTrackView?.center.y += self.offStage
+            presentingController.captionView.center.y += self.offStage
             
             let fromRect = presentingController.displayedImageView.frame
             let containerBounds = self.zoomTransitionDelegate.zoomTransitionContainerBounds()
