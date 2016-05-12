@@ -58,7 +58,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Public properties
-    public var delegate: CollieGalleryDelegate?
+    public weak var delegate: CollieGalleryDelegate?
     public var currentPageIndex: Int = 0
     public var pagingScrollView: UIScrollView!
     public var closeButton: UIButton!

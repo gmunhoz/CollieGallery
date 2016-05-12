@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.1)
+- Bug fixes:
+  - Fixing a retain cycle
+  
 ## [0.3.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.0)
 - New features:
   - Title and caption support
