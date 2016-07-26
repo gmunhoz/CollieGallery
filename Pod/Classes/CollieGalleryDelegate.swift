@@ -10,5 +10,4 @@ import UIKit
 
 @objc public protocol CollieGalleryDelegate: class {
     optional func gallery(gallery: CollieGallery, indexChangedTo index: Int)
-    
 }

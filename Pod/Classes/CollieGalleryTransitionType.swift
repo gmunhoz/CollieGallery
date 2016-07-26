@@ -34,7 +34,8 @@ public enum CollieGalleryTransitionType
         case .None:
             return nil
         case .Zoom(let fromView, let zoomTransitionDelegate):
-            return CollieGalleryZoomTransition(fromView: fromView, zoomTransitionDelegate: zoomTransitionDelegate)
+            return CollieGalleryZoomTransition(fromView: fromView,
+                                               zoomTransitionDelegate: zoomTransitionDelegate)
         default:
             return CollieGalleryDefaultTransition()
         }

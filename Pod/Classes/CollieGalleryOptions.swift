@@ -40,6 +40,9 @@ public class CollieGalleryOptions: NSObject {
     /// Indicates weather the progress should be displayed or not
     public var showProgress: Bool = true
     
+    /// Indicates weather the caption view should be displayed or not
+    public var showCaptionView: Bool = false
+    
     /// The amount of pictures that should be preloaded next to the current displayed picture
     public var preLoadedImages: Int = 3
     
@@ -51,6 +54,9 @@ public class CollieGalleryOptions: NSObject {
     
     /// Indicates if the user should be able to dismiss the gallery interactively with a pan gesture
     public var enableInteractiveDismiss: Bool = true
+    
+    /// Add fire custom block instead of showing default share menu
+    public var customOptionsBlock: (Void -> Void)?
     
     /// Array with the custom buttons
     public var customActions: [CollieGalleryCustomAction] = []
