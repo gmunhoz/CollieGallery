@@ -49,6 +49,12 @@ public class CollieGalleryOptions: NSObject {
     /// The space between each scrollview's page
     public var gapBetweenPages: CGFloat = 10.0
     
+    /// Open gallery at specified page
+    public var openAtIndex: Int = 0
+
+    public var customCloseImageName: String? = nil
+    public var customOptionsImageName: String? = nil
+    
     /// Indicates if the user should be able to save the picture
     public var enableSave: Bool = true
     

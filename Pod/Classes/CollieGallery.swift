@@ -106,7 +106,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
         }
         
-        
+        scrollToIndex(options.openAtIndex, animated: false)
     }
     
     public override func viewDidAppear(animated: Bool) {
@@ -219,10 +219,15 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         
         
         let closeButton = UIButton(frame: closeButtonFrame)
-        closeButton.setTitle("+", forState: .Normal)
-        closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-        closeButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
-        closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
+        if let customImageName = options.customCloseImageName,
+            let image = UIImage(named: customImageName) {
+            closeButton.setImage(image, forState: .Normal)
+        } else {
+            closeButton.setTitle("+", forState: .Normal)
+            closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+            closeButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
+            closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
+        }
         closeButton.addTarget(self, action: #selector(closeButtonTouched), forControlEvents: .TouchUpInside)
         
         var shouldBeHidden = false
@@ -248,9 +253,15 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         let closeButtonFrame = getActionButtonFrame(avaiableSize)
         
         let actionButton = UIButton(frame: closeButtonFrame)
-        actionButton.setTitle("•••", forState: .Normal)
-        actionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
-        actionButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
+        if let customImageName = options.customOptionsImageName,
+            let image = UIImage(named: customImageName) {
+            closeButton.setImage(image, forState: .Normal)
+        } else {
+            actionButton.setTitle("•••", forState: .Normal)
+            actionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
+            actionButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
+        }
+        
         actionButton.addTarget(self, action: #selector(actionButtonTouched), forControlEvents: .TouchUpInside)
         
         
@@ -576,10 +587,10 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Public functions
-    public func scrollToIndex(index: Int) {
+    public func scrollToIndex(index: Int, animated: Bool = true) {
         currentPageIndex = index
         loadImagesNextToIndex(currentPageIndex)
-        pagingScrollView.setContentOffset(CGPointMake(pagingScrollView.frame.size.width * CGFloat(index), 0), animated: true)
+        pagingScrollView.setContentOffset(CGPointMake(pagingScrollView.frame.size.width * CGFloat(index), 0), animated: animated)
     }
     
     public func presentInViewController(sourceViewController: UIViewController, transitionType: CollieGalleryTransitionType? = nil) {
