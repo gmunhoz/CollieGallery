@@ -23,13 +23,14 @@
 
 import UIKit
 
-internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate  {
+internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransition,
+                                               UIViewControllerAnimatedTransitioning,
+                                               UIViewControllerTransitioningDelegate  {
     
     // MARK: - Private properties
     private var presenting = true
     private var interactive = false
     private var panGestureRecognizer: UIPanGestureRecognizer!
-    
     
     // MARK: - Internal properties
     internal var enableInteractiveTransition: Bool = false
@@ -46,24 +47,24 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
     
     // MARK: - Internal functions
     internal func handlePan(pan: UIPanGestureRecognizer){
-        if self.transitionType.transition != nil {
+        if transitionType.transition != nil {
             let translation = pan.translationInView(pan.view!)
             let velocity = pan.velocityInView(pan.view!)
             
-            let max = self.targetViewController.view.bounds.size.height
+            let max = targetViewController.view.bounds.size.height
             let d = -(translation.y / max)
             
             switch (pan.state) {
                 
-            case UIGestureRecognizerState.Began:
-                if self.enableInteractiveTransition && velocity.y < 0 && !self.targetViewController.displayedView.isZoomed {
-                    self.interactive = true
-                    self.targetViewController.dismissViewControllerAnimated(true, completion: nil)
+            case .Began:
+                if enableInteractiveTransition && velocity.y < 0 && !targetViewController.displayedView.isZoomed {
+                    interactive = true
+                    targetViewController.dismissViewControllerAnimated(true, completion: nil)
                 }
                 break
                 
-            case UIGestureRecognizerState.Changed:
-                self.updateInteractiveTransition(d)
+            case .Changed:
+                updateInteractiveTransition(d)
                 break
                 
             default: 

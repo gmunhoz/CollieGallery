@@ -24,6 +24,8 @@
 import UIKit
 
 internal protocol CollieGalleryTransitionProtocol {
-    func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval)
-    func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval)
+    func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning,
+                                                  duration: NSTimeInterval)
+    func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning,
+                                               duration: NSTimeInterval)
 }

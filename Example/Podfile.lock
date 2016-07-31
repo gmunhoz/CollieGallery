@@ -1,20 +1,20 @@
 PODS:
-  - CollieGallery (0.1.0)
-  - Nimble (3.0.0)
+  - CollieGallery (0.3.1)
+  - Nimble (4.1.0)
   - Quick (0.8.0)
 
 DEPENDENCIES:
   - CollieGallery (from `../`)
-  - Nimble (= 3.0.0)
+  - Nimble (= 4.1.0)
   - Quick (~> 0.8.0)
 
 EXTERNAL SOURCES:
   CollieGallery:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  CollieGallery: 2cb5a8c58874455cf37469e31ac198ce52e6e619
-  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  CollieGallery: a1a49a463aaaa523c73250c600c305ae813919b7
+  Nimble: 97a0a4cae5124c117115634b2d055d8c97d0af19
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
 
 COCOAPODS: 0.39.0

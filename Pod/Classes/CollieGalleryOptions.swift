@@ -40,17 +40,29 @@ public class CollieGalleryOptions: NSObject {
     /// Indicates weather the progress should be displayed or not
     public var showProgress: Bool = true
     
+    /// Indicates weather the caption view should be displayed or not
+    public var showCaptionView: Bool = false
+    
     /// The amount of pictures that should be preloaded next to the current displayed picture
     public var preLoadedImages: Int = 3
     
     /// The space between each scrollview's page
     public var gapBetweenPages: CGFloat = 10.0
     
+    /// Open gallery at specified page
+    public var openAtIndex: Int = 0
+
+    public var customCloseImageName: String? = nil
+    public var customOptionsImageName: String? = nil
+    
     /// Indicates if the user should be able to save the picture
     public var enableSave: Bool = true
     
     /// Indicates if the user should be able to dismiss the gallery interactively with a pan gesture
     public var enableInteractiveDismiss: Bool = true
+    
+    /// Add fire custom block instead of showing default share menu
+    public var customOptionsBlock: (Void -> Void)?
     
     /// Array with the custom buttons
     public var customActions: [CollieGalleryCustomAction] = []

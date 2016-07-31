@@ -31,91 +31,83 @@ public class CollieGalleryCaptionView: UIView {
     
     func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: "viewTapped:")
-        self.addGestureRecognizer(tapGesture)
+        addGestureRecognizer(tapGesture)
     }
     
     func setupView() {
-        self.backgroundColor = UIColor(white: 0.0, alpha: 0.7)
+        backgroundColor = UIColor(white: 0.0, alpha: 0.7)
         
-        self.titleLabel = UILabel()
-        self.titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
-        self.titleLabel.textColor = UIColor.whiteColor()
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.userInteractionEnabled = false
+        titleLabel = UILabel()
+        titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 15)
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.userInteractionEnabled = false
         
-        self.addSubview(self.titleLabel)
+        addSubview(titleLabel)
         
-        self.captionLabel = UILabel()
-        self.captionLabel.font = UIFont(name: "HelveticaNeue", size: 13)
-        self.captionLabel.textColor = UIColor.grayColor()
-        self.captionLabel.numberOfLines = 1
-        self.captionLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
-        self.captionLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.captionLabel.userInteractionEnabled = false
+        captionLabel = UILabel()
+        captionLabel.font = UIFont(name: "HelveticaNeue", size: 13)
+        captionLabel.textColor = UIColor.grayColor()
+        captionLabel.numberOfLines = 1
+        captionLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
+        captionLabel.translatesAutoresizingMaskIntoConstraints = false
+        captionLabel.userInteractionEnabled = false
         
-        self.addSubview(self.captionLabel)
+        addSubview(captionLabel)
         
-        self.addLayoutConstraints()
+        addLayoutConstraints()
     }
     
     func addLayoutConstraints() {
-        NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 5.0).active = true
+        NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 5.0).active = true
         
-        NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
+        NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
         
-        NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 5.0).active = true
+        NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 5.0).active = true
         
-        NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 25).active = true
+        NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 25).active = true
         
-        NSLayoutConstraint(item: self.captionLabel, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.titleLabel, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: 10.0).active = true
+        NSLayoutConstraint(item: captionLabel, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: titleLabel, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: 10.0).active = true
         
-        NSLayoutConstraint(item: self.captionLabel, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 5.0).active = true
+        NSLayoutConstraint(item: captionLabel, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 5.0).active = true
         
-        NSLayoutConstraint(item: self.captionLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
-
+        NSLayoutConstraint(item: captionLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
     }
     
     func viewTapped(recognizer: UITapGestureRecognizer) {
         if !isExpanded {
             isExpanded = true
-            self.captionLabel.numberOfLines = 0
-            
-            
+            captionLabel.numberOfLines = 0
         } else {
             isExpanded = false
-            self.captionLabel.numberOfLines = 1
-            self.captionLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
-            
-            
+            captionLabel.numberOfLines = 1
+            captionLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail
         }
-        
         adjustViewSize()
-        
     }
     
     public func adjustView() {
-        self.isExpanded = false
-        self.captionLabel.numberOfLines = 1
+        isExpanded = false
+        captionLabel.numberOfLines = 1
         
-        self.hidden = self.titleLabel.text == nil && self.captionLabel.text == nil
+        hidden = titleLabel.text == nil && captionLabel.text == nil
         
         adjustViewSize()
     }
     
     public func adjustViewSize() {
-        self.captionLabel.sizeToFit()
-        
+        captionLabel.sizeToFit()
         let screenSize = UIScreen.mainScreen().bounds.size
-        
-        let contentSize: CGFloat = self.titleLabel.frame.size.height + self.captionLabel.frame.size.height + 30.0
-        
-        UIView.animateWithDuration(0.5, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            
-            self.frame = CGRectMake(self.frame.origin.x, screenSize.height - contentSize, screenSize.width, contentSize);
-            
-            
-            }) { (finished: Bool) -> Void in
-                
-        }
+        let contentSize: CGFloat = titleLabel.frame.size.height
+                                        + captionLabel.frame.size.height + 30.0
+        UIView.animateWithDuration(0.5, delay: 0.0,
+                                   options: UIViewAnimationOptions.CurveEaseInOut,
+                                   animations: { [weak self] in
+                                        guard let this = self else { return }
+                                        this.frame = CGRectMake(this.frame.origin.x,
+                                                                screenSize.height - contentSize,
+                                                                screenSize.width,
+                                                                contentSize);
+        }) { _ in}
     }
 }
