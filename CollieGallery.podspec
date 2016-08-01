@@ -17,7 +17,7 @@ DESC
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'CollieGallery' => ['Pod/Assets/*.png']
-  }
+  #s.resource_bundles = {
+  #  'CollieGallery' => ['Pod/Assets/*.png']
+  #}
 end
