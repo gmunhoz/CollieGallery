@@ -24,8 +24,8 @@
 import UIKit
 
 internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransition,
-                                               UIViewControllerAnimatedTransitioning,
-                                               UIViewControllerTransitioningDelegate  {
+    UIViewControllerAnimatedTransitioning,
+UIViewControllerTransitioningDelegate  {
     
     // MARK: - Private properties
     private var presenting = true
@@ -52,12 +52,12 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
             let velocity = pan.velocityInView(pan.view!)
             
             let max = targetViewController.view.bounds.size.height
-            let d = -(translation.y / max)
+            var d = abs(translation.y / max)
             
             switch (pan.state) {
                 
             case .Began:
-                if enableInteractiveTransition && velocity.y < 0 && !targetViewController.displayedView.isZoomed {
+                if enableInteractiveTransition && !targetViewController.displayedView.isZoomed {
                     interactive = true
                     targetViewController.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -67,7 +67,7 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
                 updateInteractiveTransition(d)
                 break
                 
-            default: 
+            default:
                 if(d > 0.1){
                     self.finishInteractiveTransition()
                 }
@@ -79,14 +79,14 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
             }
         }
     }
-
+    
     
     // MARK: - UIViewControllerAnimatedTransitioning Delegate
     internal func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         if let transition = self.transitionType.transition {
             if self.presenting {
                 transition.animatePresentationWithTransitionContext(transitionContext, duration: self.transitionDuration(transitionContext))
-
+                
             } else {
                 transition.animateDismissalWithTransitionContext(transitionContext,  duration: self.transitionDuration(transitionContext))
                 
