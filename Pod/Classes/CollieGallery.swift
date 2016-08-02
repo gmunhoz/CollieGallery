@@ -198,7 +198,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         let avaiableSize = getInitialAvaiableSize()
         let scrollFrame = getScrollViewFrame(avaiableSize)
         
-        for var i = 0; i < pictures.count; i++ {
+        for i in 0 ..< pictures.count {
             let picture = pictures[i]
             let pictureFrame = getPictureFrame(scrollFrame, pictureIndex: i)
             let pictureView = CollieGalleryView(picture: picture, frame: pictureFrame, options: options, theme: theme)
@@ -317,7 +317,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         pagingScrollView.frame = getScrollViewFrame(avaiableSize)
         pagingScrollView.contentSize = getScrollViewContentSize(pagingScrollView.frame)
         
-        for var i = 0; i < pictureViews.count; i++ {
+        for i in 0 ..< pictureViews.count {
             let innerView = pictureViews[i]
             innerView.frame = getPictureFrame(pagingScrollView.frame, pictureIndex: i)
         }
@@ -345,7 +345,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         
         let imagesToLoad = options.preLoadedImages
         
-        for var i = 1; i <= imagesToLoad; i++ {
+        for i in 1 ... imagesToLoad {
             let previousIndex = index - i
             let nextIndex = index + i
             
@@ -366,10 +366,10 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         
         var imagesCleared = 0
         
-        for var i = 0; i < pictureViews.count; i++ {
+        for i in 0 ..< pictureViews.count {
             if i < firstIndex || i > lastIndex {
                 pictureViews[i].clearImage()
-                imagesCleared++
+                imagesCleared += 1
             }
         }
         
@@ -525,7 +525,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     // MARK: - UIScrollView delegate
     public func scrollViewDidScroll(scrollView: UIScrollView) {
-        for var i = 0; i < pictureViews.count; i++ {
+        for i in 0 ..< pictureViews.count {
             pictureViews[i].scrollView.contentOffset = CGPointMake((scrollView.contentOffset.x - pictureViews[i].frame.origin.x + options.gapBetweenPages) * -options.parallaxFactor, 0)
         }
 

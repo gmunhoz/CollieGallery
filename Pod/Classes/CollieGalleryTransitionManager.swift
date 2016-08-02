@@ -39,7 +39,7 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
     internal weak var targetViewController: CollieGallery! {
         didSet {
             self.panGestureRecognizer = UIPanGestureRecognizer()
-            self.panGestureRecognizer.addTarget(self, action:"handlePan:")
+            self.panGestureRecognizer.addTarget(self, action:#selector(CollieGalleryTransitionManager.handlePan(_:)))
             self.targetViewController.view.addGestureRecognizer(self.panGestureRecognizer)
         }
     }

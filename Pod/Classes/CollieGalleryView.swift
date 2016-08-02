@@ -114,17 +114,17 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     }
 
     private func setupGestures() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "viewTapped:")
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryView.viewTapped(_:)))
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
         addGestureRecognizer(tapRecognizer)
         
-        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "viewDoubleTapped:")
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryView.viewDoubleTapped(_:)))
         doubleTapRecognizer.numberOfTapsRequired = 2
         doubleTapRecognizer.numberOfTouchesRequired = 1
         addGestureRecognizer(doubleTapRecognizer)
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "viewPressed:")
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(CollieGalleryView.viewPressed(_:)))
         longPressRecognizer.numberOfTouchesRequired = 1
         addGestureRecognizer(longPressRecognizer)
         

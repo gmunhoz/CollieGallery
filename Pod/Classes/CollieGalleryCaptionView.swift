@@ -30,7 +30,7 @@ public class CollieGalleryCaptionView: UIView {
     }
     
     func setupGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: "viewTapped:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
         addGestureRecognizer(tapGesture)
     }
     
