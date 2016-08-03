@@ -8,12 +8,23 @@
 
 import UIKit
 
+/// Class used to create a custom action in the activity controller
 public class CollieGalleryCustomAction: UIActivity {
-    var customActivityType = ""
-    var activityName = ""
-    var activityImageName = ""
-    var customActionWhenTapped:( (Void)-> Void)!
+    private var customActivityType = ""
+    private var activityName = ""
+    private var activityImageName = ""
+    private var customActionWhenTapped:( (Void)-> Void)!
     
+    /**
+     
+        Default initializer to create a custom action
+
+        - Parameters:
+            - title: The title
+            - imageName: The image that will be displayed with the action
+            - performAction: The action that should be performed when tapped
+
+    */
     public init(title: String, imageName: String, performAction: (() -> ()) ) {
         self.activityName = title
         self.activityImageName = imageName

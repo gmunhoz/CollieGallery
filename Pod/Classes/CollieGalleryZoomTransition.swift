@@ -23,8 +23,13 @@
 
 import UIKit
 
+/// Protocol to implement the zoom transition
 public protocol CollieGalleryZoomTransitionDelegate {
+    
+    /// Called in the presentation and dismissal to indicate the bounds where the zoom animation can happen
     func zoomTransitionContainerBounds() -> CGRect
+        
+    /// Called in the dismissal to indicate which view should be used to zoom out
     func zoomTransitionViewToDismissForIndex(index: Int) -> UIView?
 }
 
@@ -39,6 +44,16 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
     
     
     // MARK: - Initializers
+    
+    /**
+     
+        Initializer that takes a view and a delegate
+        
+        - Parameters:
+            - fromView: The view from where the animation will zoom in
+            - zoomTransitionDelegate: The delegate
+    
+    */
     public init(fromView: UIView, zoomTransitionDelegate: CollieGalleryZoomTransitionDelegate) {
         self.fromView = fromView
         self.zoomTransitionDelegate = zoomTransitionDelegate

@@ -23,6 +23,7 @@
 
 import UIKit
 
+/// Class used to display the gallery
 public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryViewDelegate {
     
     // MARK: - Private properties
@@ -58,14 +59,32 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Public properties
+    
+    /// The delegate
     public weak var delegate: CollieGalleryDelegate?
+    
+    /// The current page index
     public var currentPageIndex: Int = 0
+    
+    /// The scrollview used for paging
     public var pagingScrollView: UIScrollView!
+    
+    /// The close button
     public var closeButton: UIButton!
+    
+    /// The action button
     public var actionButton: UIButton?
+    
+    /// The view used to show the progress
     public var progressTrackView: UIView?
+    
+    /// The background view of the progress bar
     public var progressBarView: UIView?
+    
+    /// The view used to display the title and caption properties
     public var captionView: CollieGalleryCaptionView!
+    
+    /// The currently displayed imageview
     public var displayedImageView: UIImageView {
         get {
             return displayedView.imageView
@@ -81,6 +100,17 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         super.init(nibName: nil, bundle: nil)
     }
     
+    
+    /**
+     
+        Default gallery initializer
+
+        - Parameters:
+            - pictures: The pictures to display in the gallery
+            - options: An optional object with the customization options
+            - theme: An optional theme to customize the gallery appearance
+
+    */
     public convenience init(pictures: [CollieGalleryPicture],
                             options: CollieGalleryOptions? = nil,
                             theme: CollieGalleryTheme? = nil)
@@ -587,12 +617,31 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Public functions
+    
+    /**
+     
+        Scrolls the gallery to an index
+
+        - Parameters:
+            - index: The index to scroll
+            - animated: Indicates if it should be animated or not
+
+    */
     public func scrollToIndex(index: Int, animated: Bool = true) {
         currentPageIndex = index
         loadImagesNextToIndex(currentPageIndex)
         pagingScrollView.setContentOffset(CGPointMake(pagingScrollView.frame.size.width * CGFloat(index), 0), animated: animated)
     }
     
+    /**
+     
+        Presents the gallery from a view controller
+
+        - Parameters:
+            - sourceViewController: The source view controller
+            - transitionType: The transition type used to present the gallery
+     
+    */
     public func presentInViewController(sourceViewController: UIViewController, transitionType: CollieGalleryTransitionType? = nil) {
         
         let type = transitionType == nil ? CollieGalleryTransitionType.defaultType : transitionType!

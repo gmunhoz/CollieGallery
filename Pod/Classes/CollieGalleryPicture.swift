@@ -23,6 +23,7 @@
 
 import UIKit
 
+/// Class used to represent a picture in the gallery
 public class CollieGalleryPicture: NSObject {
     
     // MARK: - Internal properties
@@ -34,6 +35,17 @@ public class CollieGalleryPicture: NSObject {
     
     
     // MARK: - Initializers
+    
+    /**
+     
+        Initializer that takes an image object
+
+        - Parameters:
+            - image: The image
+            - title: An optional title to the image
+            - caption: An optional caption to describe the image
+     
+    */
     public convenience init(image: UIImage, title: String? = nil, caption: String? = nil) {
         self.init()
         self.image = image
@@ -41,6 +53,17 @@ public class CollieGalleryPicture: NSObject {
         self.caption = caption
     }
     
+    /**
+     
+        Initializer that takes a string url of a remote image
+
+        - Parameters:
+            - url: The remote url
+            - placeholder: An optional placeholder image
+            - title: An optional title to the image
+            - caption: An optional caption to describe the image
+     
+    */
     public convenience init(url: String, placeholder: UIImage? = nil, title: String? = nil, caption: String? = nil) {
         self.init()
         self.url = url

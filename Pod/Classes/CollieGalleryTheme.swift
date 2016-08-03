@@ -23,6 +23,15 @@
 
 import UIKit
 
+/**
+ 
+    Theme used to change the gallery appearance.
+
+    - Custom: Based on an appearance object.
+    - Dark: Dark background with light controls.
+    - Light: Light background with dark controls.
+ 
+*/
 public enum CollieGalleryTheme {
     case Custom(appearance: CollieGalleryAppearance)
     case Dark

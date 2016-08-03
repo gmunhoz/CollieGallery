@@ -23,6 +23,7 @@
 
 import UIKit
 
+/// Class used to customize the gallery options
 public class CollieGalleryOptions: NSObject {
     
     /// Shared options between all new instances of the gallery
@@ -52,7 +53,10 @@ public class CollieGalleryOptions: NSObject {
     /// Open gallery at specified page
     public var openAtIndex: Int = 0
 
+    /// Custom close button image name
     public var customCloseImageName: String? = nil
+    
+    /// Custom options button image name
     public var customOptionsImageName: String? = nil
     
     /// Indicates if the user should be able to save the picture

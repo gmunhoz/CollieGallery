@@ -8,11 +8,15 @@
 
 import UIKit
 
+/// View used to show a caption for the picture
 public class CollieGalleryCaptionView: UIView {
     
     private var isExpanded = false
     
+    /// The title label
     var titleLabel: UILabel!
+    
+    /// The caption label
     var captionLabel: UILabel!
     
     override init(frame: CGRect) {
@@ -29,12 +33,22 @@ public class CollieGalleryCaptionView: UIView {
         setupView()
     }
     
-    func setupGestures() {
+    /// Toggle the visibility and adjusts the view size
+    public func adjustView() {
+        isExpanded = false
+        captionLabel.numberOfLines = 1
+        
+        hidden = titleLabel.text == nil && captionLabel.text == nil
+        
+        adjustViewSize()
+    }
+    
+    private func setupGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
         addGestureRecognizer(tapGesture)
     }
     
-    func setupView() {
+    private func setupView() {
         backgroundColor = UIColor(white: 0.0, alpha: 0.7)
         
         titleLabel = UILabel()
@@ -58,7 +72,7 @@ public class CollieGalleryCaptionView: UIView {
         addLayoutConstraints()
     }
     
-    func addLayoutConstraints() {
+    private func addLayoutConstraints() {
         NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: 5.0).active = true
         
         NSLayoutConstraint(item: titleLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
@@ -74,6 +88,7 @@ public class CollieGalleryCaptionView: UIView {
         NSLayoutConstraint(item: captionLabel, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: -5.0).active = true
     }
     
+    /// Called when the caption view is tapped
     func viewTapped(recognizer: UITapGestureRecognizer) {
         if !isExpanded {
             isExpanded = true
@@ -86,16 +101,7 @@ public class CollieGalleryCaptionView: UIView {
         adjustViewSize()
     }
     
-    public func adjustView() {
-        isExpanded = false
-        captionLabel.numberOfLines = 1
-        
-        hidden = titleLabel.text == nil && captionLabel.text == nil
-        
-        adjustViewSize()
-    }
-    
-    public func adjustViewSize() {
+    private func adjustViewSize() {
         captionLabel.sizeToFit()
         let screenSize = UIScreen.mainScreen().bounds.size
         let contentSize: CGFloat = titleLabel.frame.size.height

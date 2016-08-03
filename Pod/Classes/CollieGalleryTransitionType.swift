@@ -23,6 +23,15 @@
 
 import UIKit
 
+/**
+ 
+    Transition type used on the presentation and dismissal of the gallery.
+
+    - Default: Zoom transition based on the center of the screen.
+    - Zoom: Zoom transition based on a view.
+    - None: No transition.
+ 
+ */
 public enum CollieGalleryTransitionType
 {
     case Default
