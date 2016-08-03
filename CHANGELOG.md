@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.3](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.3)
+- New features:
+  - Pan down to dismiss [(Issue #6)](https://github.com/gmunhoz/CollieGallery/issues/6)
+  
+## [0.3.2](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.2)
+- New features:
+  - Custom image for close and action buttons
+  - Custom block support for action button
+  
 ## [0.3.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.1)
 - Bug fixes:
   - Fixing a retain cycle
