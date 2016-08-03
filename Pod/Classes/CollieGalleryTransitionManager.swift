@@ -49,10 +49,9 @@ UIViewControllerTransitioningDelegate  {
     internal func handlePan(pan: UIPanGestureRecognizer){
         if transitionType.transition != nil {
             let translation = pan.translationInView(pan.view!)
-            let velocity = pan.velocityInView(pan.view!)
             
             let max = targetViewController.view.bounds.size.height
-            var d = abs(translation.y / max)
+            let d = abs(translation.y / max)
             
             switch (pan.state) {
                 
