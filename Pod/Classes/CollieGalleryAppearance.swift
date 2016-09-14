@@ -24,20 +24,20 @@
 import UIKit
 
 /// Class used to customize the appearance
-public class CollieGalleryAppearance: NSObject {
+open class CollieGalleryAppearance: NSObject {
     
     /// Shared appearance between all new instances of the gallery
-    public static var sharedAppearance = CollieGalleryAppearance()
+    open static var sharedAppearance = CollieGalleryAppearance()
     
     /// The background color of the gallery
-    var backgroundColor = UIColor.blackColor()
+    var backgroundColor = UIColor.black
     
     /// The color of current progress in the progress bar
-    var progressBarColor = UIColor.whiteColor()
+    var progressBarColor = UIColor.white
     
     /// The color of the activity indicator
-    var activityIndicatorColor = UIColor.whiteColor()
+    var activityIndicatorColor = UIColor.white
     
     /// The color of the close button icon
-    var closeButtonColor = UIColor.whiteColor()
+    var closeButtonColor = UIColor.white
 }

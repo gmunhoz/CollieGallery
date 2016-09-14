@@ -33,54 +33,54 @@ import UIKit
  
 */
 public enum CollieGalleryTheme {
-    case Custom(appearance: CollieGalleryAppearance)
-    case Dark
-    case Light
+    case custom(appearance: CollieGalleryAppearance)
+    case dark
+    case light
     
     internal var backgroundColor: UIColor {
         switch self {
-        case .Custom(let appearance):
+        case .custom(let appearance):
             return appearance.backgroundColor
-        case .Dark:
-            return UIColor.blackColor()
-        case .Light:
-            return UIColor.whiteColor()
+        case .dark:
+            return UIColor.black
+        case .light:
+            return UIColor.white
         }
     }
     
     internal var progressBarColor: UIColor {
         switch self {
-        case .Custom(let appearance):
+        case .custom(let appearance):
             return appearance.progressBarColor
-        case .Dark:
-            return UIColor.whiteColor()
-        case .Light:
-            return UIColor.blackColor()
+        case .dark:
+            return UIColor.white
+        case .light:
+            return UIColor.black
         }
     }
     
     internal var closeButtonColor: UIColor {
         switch self {
-        case .Custom(let appearance):
+        case .custom(let appearance):
             return appearance.closeButtonColor
-        case .Dark:
-            return UIColor.whiteColor()
-        case .Light:
-            return UIColor.blackColor()
+        case .dark:
+            return UIColor.white
+        case .light:
+            return UIColor.black
         }
     }
     
     internal var progressIndicatorColor: UIColor {
         switch self {
-        case .Custom(let appearance):
+        case .custom(let appearance):
             return appearance.activityIndicatorColor
-        case .Dark:
-            return UIColor.whiteColor()
-        case .Light:
-            return UIColor.blackColor()
+        case .dark:
+            return UIColor.white
+        case .light:
+            return UIColor.black
         }
     }
     
     /// The default theme for all new instances of the gallery
-    public static var defaultTheme = CollieGalleryTheme.Custom(appearance: CollieGalleryAppearance.sharedAppearance)
+    public static var defaultTheme = CollieGalleryTheme.custom(appearance: CollieGalleryAppearance.sharedAppearance)
 }

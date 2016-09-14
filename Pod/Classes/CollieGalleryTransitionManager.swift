@@ -28,9 +28,9 @@ internal class CollieGalleryTransitionManager: UIPercentDrivenInteractiveTransit
 UIViewControllerTransitioningDelegate  {
     
     // MARK: - Private properties
-    private var presenting = true
-    private var interactive = false
-    private var panGestureRecognizer: UIPanGestureRecognizer!
+    fileprivate var presenting = true
+    fileprivate var interactive = false
+    fileprivate var panGestureRecognizer: UIPanGestureRecognizer!
     
     // MARK: - Internal properties
     internal var enableInteractiveTransition: Bool = false
@@ -46,32 +46,32 @@ UIViewControllerTransitioningDelegate  {
     
     
     // MARK: - Internal functions
-    internal func handlePan(pan: UIPanGestureRecognizer){
+    internal func handlePan(_ pan: UIPanGestureRecognizer){
         if transitionType.transition != nil {
-            let translation = pan.translationInView(pan.view!)
+            let translation = pan.translation(in: pan.view!)
             
             let max = targetViewController.view.bounds.size.height
             let d = abs(translation.y / max)
             
             switch (pan.state) {
                 
-            case .Began:
+            case .began:
                 if enableInteractiveTransition && !targetViewController.displayedView.isZoomed {
                     interactive = true
-                    targetViewController.dismissViewControllerAnimated(true, completion: nil)
+                    targetViewController.dismiss(animated: true, completion: nil)
                 }
                 break
                 
-            case .Changed:
-                updateInteractiveTransition(d)
+            case .changed:
+                update(d)
                 break
                 
             default:
                 if(d > 0.1){
-                    self.finishInteractiveTransition()
+                    self.finish()
                 }
                 else {
-                    self.cancelInteractiveTransition()
+                    self.cancel()
                 }
                 
                 self.interactive = false
@@ -81,13 +81,13 @@ UIViewControllerTransitioningDelegate  {
     
     
     // MARK: - UIViewControllerAnimatedTransitioning Delegate
-    internal func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    internal func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         if let transition = self.transitionType.transition {
             if self.presenting {
-                transition.animatePresentationWithTransitionContext(transitionContext, duration: self.transitionDuration(transitionContext))
+                transition.animatePresentationWithTransitionContext(transitionContext, duration: self.transitionDuration(using: transitionContext))
                 
             } else {
-                transition.animateDismissalWithTransitionContext(transitionContext,  duration: self.transitionDuration(transitionContext))
+                transition.animateDismissalWithTransitionContext(transitionContext,  duration: self.transitionDuration(using: transitionContext))
                 
             }
             
@@ -97,27 +97,27 @@ UIViewControllerTransitioningDelegate  {
         }
     }
     
-    internal func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    internal func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }
     
     
     // MARK: - UIViewControllerTransitioning Delegate
-    internal func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    internal func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = true
         return self
     }
     
-    internal func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    internal func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = false
         return self
     }
     
-    internal func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    internal func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return nil
     }
     
-    internal func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    internal func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return self.interactive ? self : nil
     }
     

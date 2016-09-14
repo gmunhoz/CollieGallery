@@ -26,15 +26,15 @@ import UIKit
 internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
     
     // MARK: - Private properties
-    private let minorScale = CGAffineTransformMakeScale(0.1, 0.1)
-    private let offStage: CGFloat = 100.0
+    fileprivate let minorScale = CGAffineTransform(scaleX: 0.1, y: 0.1)
+    fileprivate let offStage: CGFloat = 100.0
     
     
     // MARK: - CollieGalleryTransitionProtocol
-    internal func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
-        let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! CollieGallery
-        let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let containerView = transitionContext.containerView()!
+    internal func animatePresentationWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval) {
+        let presentedController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! CollieGallery
+        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
+        let containerView = transitionContext.containerView
         
         presentedControllerView.alpha = 0.0
         
@@ -47,28 +47,28 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
         
         containerView.addSubview(presentedControllerView)
         
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
             
             presentedControllerView.alpha = 1.0
             presentedController.closeButton.center.x += self.offStage
             presentedController.actionButton?.center.x -= self.offStage
             presentedController.progressTrackView?.center.y -= self.offStage
             presentedController.captionView.center.y -= self.offStage
-            presentedController.pagingScrollView.transform = CGAffineTransformIdentity
+            presentedController.pagingScrollView.transform = CGAffineTransform.identity
             
             }, completion: {(completed: Bool) -> Void in
                 transitionContext.completeTransition(completed)
         })
     }
     
-    internal func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
-        let presentingController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! CollieGallery
-        let presentingControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        let containerView = transitionContext.containerView()!
+    internal func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval) {
+        let presentingController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! CollieGallery
+        let presentingControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        let containerView = transitionContext.containerView
         
         containerView.addSubview(presentingControllerView)
         
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
             
             presentingControllerView.alpha = 0.0
             presentingController.closeButton.center.x -= self.offStage
@@ -78,7 +78,7 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
             presentingController.pagingScrollView.transform = self.minorScale
             
             }, completion: {(completed: Bool) -> Void in
-                if(transitionContext.transitionWasCancelled()){
+                if(transitionContext.transitionWasCancelled){
                     transitionContext.completeTransition(false)
                     
                 }
