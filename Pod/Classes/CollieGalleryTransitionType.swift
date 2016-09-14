@@ -34,15 +34,15 @@ import UIKit
  */
 public enum CollieGalleryTransitionType
 {
-    case Default
-    case Zoom(fromView: UIView, zoomTransitionDelegate: CollieGalleryZoomTransitionDelegate)
-    case None
+    case `default`
+    case zoom(fromView: UIView, zoomTransitionDelegate: CollieGalleryZoomTransitionDelegate)
+    case none
     
     internal var transition: CollieGalleryTransitionProtocol? {
         switch self {
-        case .None:
+        case .none:
             return nil
-        case .Zoom(let fromView, let zoomTransitionDelegate):
+        case .zoom(let fromView, let zoomTransitionDelegate):
             return CollieGalleryZoomTransition(fromView: fromView,
                                                zoomTransitionDelegate: zoomTransitionDelegate)
         default:
@@ -52,7 +52,7 @@ public enum CollieGalleryTransitionType
     
     internal var animated: Bool {
         switch self {
-        case .None:
+        case .none:
             return false
         default:
             return true
@@ -61,7 +61,7 @@ public enum CollieGalleryTransitionType
     
     internal var fromView: UIView? {
         switch self {
-        case .Zoom(let fromView, _):
+        case .zoom(let fromView, _):
             return fromView
         default:
             return nil
@@ -69,5 +69,5 @@ public enum CollieGalleryTransitionType
     }
     
     /// The default transition for all new instances of the gallery
-    public static var defaultType = CollieGalleryTransitionType.Default
+    public static var defaultType = CollieGalleryTransitionType.default
 }
