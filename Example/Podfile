@@ -1,13 +1,15 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/gmunhoz/CollieGallery.git'
+
+project 'CollieGallery'
+inhibit_all_warnings!
 use_frameworks!
 
-target 'CollieGallery_Example', :exclusive => true do
-  pod 'CollieGallery', :path => '../'
+target 'CollieGallery_Example' do
+    pod 'CollieGallery', :path => '../'
 end
 
-target 'CollieGallery_Tests', :exclusive => true do
-  pod 'CollieGallery', :path => '../'
-
-  pod 'Quick', '~> 0.8.0'
-  pod 'Nimble', '4.1.0'
+target 'CollieGallery_Tests' do
+    pod 'CollieGallery', :path => '../'
+    pod 'Quick', '0.9.3’
+    pod 'Nimble', '4.1.0'
 end

@@ -34,7 +34,7 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
     internal func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
         let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! CollieGallery
         let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         
         presentedControllerView.alpha = 0.0
         
@@ -64,7 +64,7 @@ internal class CollieGalleryDefaultTransition: CollieGalleryTransitionProtocol {
     internal func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
         let presentingController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! CollieGallery
         let presentingControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         
         containerView.addSubview(presentingControllerView)
         

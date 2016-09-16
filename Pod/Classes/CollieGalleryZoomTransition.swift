@@ -64,7 +64,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
     internal func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
         let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! CollieGallery
         let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         
         presentedController.view.backgroundColor = presentedController.view.backgroundColor?.colorWithAlphaComponent(0.0)
         
@@ -96,7 +96,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
     internal func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
         let presentingController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! CollieGallery
         let presentingControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         
         containerView.addSubview(presentingControllerView)
         
@@ -130,11 +130,12 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
         if let view = targetView {
             let rectInWindow =  self.fromView.superview?.convertRect(view.frame, toView: nil)
     
-            if let toRect = rectInWindow, let bounds = containerBounds where CGRectContainsRect(bounds, toRect) {
-                let scales = CGSizeMake(toRect.size.width/imageRect.size.width, toRect.size.height/imageRect.size.height)
-                let offset = CGPointMake(CGRectGetMidX(toRect) - CGRectGetMidX(imageRect), CGRectGetMidY(toRect) - CGRectGetMidY(imageRect))
-                return CGAffineTransformMake(scales.width, 0, 0, scales.height, offset.x, offset.y)
-                
+            if let toRect = rectInWindow, let bounds = containerBounds {
+                if CGRectContainsRect(bounds, toRect) {
+                    let scales = CGSizeMake(toRect.size.width/imageRect.size.width, toRect.size.height/imageRect.size.height)
+                    let offset = CGPointMake(CGRectGetMidX(toRect) - CGRectGetMidX(imageRect), CGRectGetMidY(toRect) - CGRectGetMidY(imageRect))
+                    return CGAffineTransformMake(scales.width, 0, 0, scales.height, offset.x, offset.y)
+                }
             }
         }
         

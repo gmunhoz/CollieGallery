@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.4.0)
+- New features:
+- Swift 2.3 support
+
 ## [0.3.3](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.3)
 - New features:
   - Pan down to dismiss [(Issue #6)](https://github.com/gmunhoz/CollieGallery/issues/6)
