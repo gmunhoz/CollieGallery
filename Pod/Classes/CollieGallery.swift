@@ -251,11 +251,11 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         let closeButton = UIButton(frame: closeButtonFrame)
         if let customImageName = options.customCloseImageName,
             let image = UIImage(named: customImageName) {
-            closeButton.setImage(image, for: UIControlState())
+            closeButton.setImage(image, for: .normal)
         } else {
-            closeButton.setTitle("+", for: UIControlState())
+            closeButton.setTitle("+", for: .normal)
             closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-            closeButton.setTitleColor(theme.closeButtonColor, for: UIControlState())
+            closeButton.setTitleColor(theme.closeButtonColor, for: .normal)
             closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4))
         }
         closeButton.addTarget(self, action: #selector(closeButtonTouched), for: .touchUpInside)
@@ -285,11 +285,11 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         let actionButton = UIButton(frame: closeButtonFrame)
         if let customImageName = options.customOptionsImageName,
             let image = UIImage(named: customImageName) {
-            closeButton.setImage(image, for: UIControlState())
+            closeButton.setImage(image, for: .normal)
         } else {
-            actionButton.setTitle("•••", for: UIControlState())
+            actionButton.setTitle("•••", for: .normal)
             actionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
-            actionButton.setTitleColor(theme.closeButtonColor, for: UIControlState())
+            actionButton.setTitleColor(theme.closeButtonColor, for: .normal)
         }
         
         actionButton.addTarget(self, action: #selector(actionButtonTouched), for: .touchUpInside)
