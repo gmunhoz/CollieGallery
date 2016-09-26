@@ -17,7 +17,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         super.viewDidLoad()
     }
 
-    @IBAction func showWithLocalImagesTapped(sender: UIButton) {
+    @IBAction func showWithLocalImagesTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
         for i in 1 ..< 5 {
@@ -33,7 +33,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         gallery.presentInViewController(self)
     }
     
-    @IBAction func showWithRemoteImagesTapped(sender: UIButton) {
+    @IBAction func showWithRemoteImagesTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
 
         for i in 1 ..< 5 {
@@ -46,7 +46,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         gallery.presentInViewController(self)
     }
     
-    @IBAction func showWithCustomButton(sender: UIButton) {
+    @IBAction func showWithCustomButton(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
         for i in 1 ..< 5 {
@@ -65,7 +65,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         }
         
         options.customActions = [customAction]
-        options.excludedActions = [UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard, UIActivityTypePrint]
+        options.excludedActions = [UIActivityType.assignToContact, UIActivityType.copyToPasteboard, UIActivityType.print]
         
         let gallery = CollieGallery(pictures: pictures, options: options)
         gallery.delegate = self
@@ -73,7 +73,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         gallery.presentInViewController(self)
     }
     
-    @IBAction func showFromImageTapped(sender: UIButton) {
+    @IBAction func showFromImageTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
         for i in 1 ..< 5 {
@@ -86,25 +86,25 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         options.customOptionsBlock = { [weak self] in
             let alert = UIAlertController(title: "Hey",
                                           message: "Custom handle block",
-                                          preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { _ in})
+                                          preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in})
             alert.addAction(cancelAction)
-            self?.presentedViewController?.presentViewController(alert, animated: true) {}
+            self?.presentedViewController?.present(alert, animated: true) {}
         }
         
         let gallery = CollieGallery(pictures: pictures, options: options)
-        gallery.presentInViewController(self, transitionType: CollieGalleryTransitionType.Zoom(fromView: sender, zoomTransitionDelegate: self))
+        gallery.presentInViewController(self, transitionType: CollieGalleryTransitionType.zoom(fromView: sender, zoomTransitionDelegate: self))
     }
     
     func zoomTransitionContainerBounds() -> CGRect {
        return self.view.frame
     }
     
-    func zoomTransitionViewToDismissForIndex(index: Int) -> UIView? {
+    func zoomTransitionViewToDismissForIndex(_ index: Int) -> UIView? {
         return self.imageButton
     }
     
-    func gallery(gallery: CollieGallery, indexChangedTo index: Int) {
+    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
         print("Index changed to: \(index)")
     }
     

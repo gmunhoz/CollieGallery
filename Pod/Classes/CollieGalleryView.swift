@@ -38,11 +38,11 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     }
     
     // MARK: - Private properties
-    private var options: CollieGalleryOptions!
-    private var theme: CollieGalleryTheme!
-    private var scrollFrame: CGRect {
+    fileprivate var options: CollieGalleryOptions!
+    fileprivate var theme: CollieGalleryTheme!
+    fileprivate var scrollFrame: CGRect {
         get {
-            return CGRectMake(0, 0, frame.size.width, frame.size.height)
+            return CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         }
     }
     
@@ -70,42 +70,42 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     }
 
     // MARK: - Private functions
-    private func setupView() {
-        backgroundColor = UIColor.clearColor()
+    fileprivate func setupView() {
+        backgroundColor = UIColor.clear
         
         setupScrollView()
         setupImageView()
         setupActivityIndicatorView()
     }
 
-    private func setupScrollView() {
+    fileprivate func setupScrollView() {
         scrollView = UIScrollView(frame: scrollFrame)
         scrollView.delegate = self
         scrollView.contentSize = frame.size
         scrollView.bounces = false
-        scrollView.scrollEnabled = false
+        scrollView.isScrollEnabled = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = options.maximumZoomScale
         scrollView.decelerationRate = UIScrollViewDecelerationRateFast
-        scrollView.backgroundColor = UIColor.clearColor()
-        userInteractionEnabled = options.enableZoom
+        scrollView.backgroundColor = UIColor.clear
+        isUserInteractionEnabled = options.enableZoom
         
         addSubview(scrollView)
     }
     
-    private func setupImageView() {
+    fileprivate func setupImageView() {
         imageView = UIImageView(frame: scrollFrame)
-        imageView.contentMode = UIViewContentMode.ScaleToFill
-        imageView.backgroundColor = UIColor.clearColor()
+        imageView.contentMode = UIViewContentMode.scaleToFill
+        imageView.backgroundColor = UIColor.clear
         
         scrollView.addSubview(imageView)
     }
     
-    private func setupActivityIndicatorView() {
+    fileprivate func setupActivityIndicatorView() {
         activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0);
         activityIndicator.center = imageView.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = theme.progressIndicatorColor
@@ -113,7 +113,7 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         addSubview(activityIndicator)
     }
 
-    private func setupGestures() {
+    fileprivate func setupGestures() {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryView.viewTapped(_:)))
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
@@ -128,10 +128,10 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         longPressRecognizer.numberOfTouchesRequired = 1
         addGestureRecognizer(longPressRecognizer)
         
-        tapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
+        tapRecognizer.require(toFail: doubleTapRecognizer)
     }
     
-    private func zoomToScale(newZoomScale: CGFloat, pointInView: CGPoint) {
+    fileprivate func zoomToScale(_ newZoomScale: CGFloat, pointInView: CGPoint) {
         let scrollViewSize = bounds.size
         
         let width = scrollViewSize.width / newZoomScale
@@ -140,12 +140,12 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         let x = pointInView.x - (width / 2.0)
         let y = pointInView.y - (height / 2.0)
         
-        let rectToZoomTo = CGRectMake(x, y, width, height);
+        let rectToZoomTo = CGRect(x: x, y: y, width: width, height: height);
         
-        scrollView.zoomToRect(rectToZoomTo, animated: true)
+        scrollView.zoom(to: rectToZoomTo, animated: true)
     }
 
-    private func centerImageViewToSuperView() {
+    fileprivate func centerImageViewToSuperView() {
         var zoomFrame = imageView.frame
         
         if(zoomFrame.size.width < scrollView.bounds.size.width) {
@@ -168,17 +168,17 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         
     }
     
-    private func updateImageViewSize() {
+    fileprivate func updateImageViewSize() {
         if let image = imageView.image {
-            var imageSize = CGSizeMake(image.size.width / image.scale, image.size.height / image.scale)
+            var imageSize = CGSize(width: image.size.width / image.scale, height: image.size.height / image.scale)
             
             let widthRatio = imageSize.width / bounds.size.width
             let heightRatio = imageSize.height / bounds.size.height
             let imageScaleRatio = max(widthRatio, heightRatio)
             
-            imageSize = CGSizeMake(imageSize.width / imageScaleRatio, imageSize.height / imageScaleRatio)
+            imageSize = CGSize(width: imageSize.width / imageScaleRatio, height: imageSize.height / imageScaleRatio)
             
-            imageView.frame = CGRectMake(0.0, 0.0, imageSize.width, imageSize.height)
+            imageView.frame = CGRect(x: 0.0, y: 0.0, width: imageSize.width, height: imageSize.height)
             
             restoreZoom(false)
             centerImageViewToSuperView()
@@ -187,7 +187,7 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     
     
     // MARK: - Internal functions
-    func zoomToPoint(pointInView: CGPoint) {
+    func zoomToPoint(_ pointInView: CGPoint) {
         var newZoomScale = scrollView.minimumZoomScale
         
         if scrollView.zoomScale < (scrollView.maximumZoomScale / 2) {
@@ -197,9 +197,9 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         zoomToScale(newZoomScale, pointInView: pointInView)
     }
 
-    func restoreZoom(animated: Bool = true) {
+    func restoreZoom(_ animated: Bool = true) {
         if animated {
-            zoomToScale(scrollView.minimumZoomScale, pointInView: CGPointZero)
+            zoomToScale(scrollView.minimumZoomScale, pointInView: CGPoint.zero)
         } else {
             scrollView.zoomScale = scrollView.minimumZoomScale
         }
@@ -220,8 +220,8 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
                 
                 activityIndicator.startAnimating()
                 
-                let request: NSURLRequest = NSURLRequest(URL: NSURL(string: url)!)
-                let mainQueue = NSOperationQueue.mainQueue()
+                let request: URLRequest = URLRequest(url: URL(string: url)!)
+                let mainQueue = OperationQueue.main
                 NSURLConnection.sendAsynchronousRequest(request,
                                                         queue: mainQueue,
                                                         completionHandler:
@@ -229,7 +229,7 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
                     if error == nil {
                         let image = UIImage(data: data!)!
                         
-                        dispatch_async(dispatch_get_main_queue(), {
+                        DispatchQueue.main.async(execute: {
                             self?.imageView.image = image
                             self?.updateImageViewSize()
                             
@@ -256,15 +256,15 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     
     
     // MARK: - UIGestureRecognizer handlers
-    func viewPressed(recognizer: UILongPressGestureRecognizer) {
-        if (recognizer.state == UIGestureRecognizerState.Began) {
+    func viewPressed(_ recognizer: UILongPressGestureRecognizer) {
+        if (recognizer.state == UIGestureRecognizerState.began) {
             if let delegate = delegate {
                 delegate.galleryViewPressed(self)
             }
         }
     }
     
-    func viewTapped(recognizer: UITapGestureRecognizer) {
+    func viewTapped(_ recognizer: UITapGestureRecognizer) {
         if scrollView.zoomScale > scrollView.minimumZoomScale {
             restoreZoom()
             
@@ -275,18 +275,18 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         }
     }
 
-    func viewDoubleTapped(recognizer: UITapGestureRecognizer) {
-        let pointInView = recognizer.locationInView(imageView)
+    func viewDoubleTapped(_ recognizer: UITapGestureRecognizer) {
+        let pointInView = recognizer.location(in: imageView)
         zoomToPoint(pointInView)
     }
     
     
     //  MARK: - UIScrollView delegate
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
 
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         if (scrollView.zoomScale > scrollView.maximumZoomScale) {
             scrollView.zoomScale = scrollView.maximumZoomScale
         }
@@ -294,7 +294,7 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
         centerImageViewToSuperView()
     }
     
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         if let delegate = delegate {
             if scrollView.zoomScale == scrollView.minimumZoomScale {
                 delegate.galleryViewDidRestoreZoom(self)
@@ -305,12 +305,12 @@ internal class CollieGalleryView: UIView, UIScrollViewDelegate {
             }
         }
         
-        let oldState = scrollView.scrollEnabled
+        let oldState = scrollView.isScrollEnabled
         
-        scrollView.scrollEnabled = (scrollView.zoomScale > scrollView.minimumZoomScale)
+        scrollView.isScrollEnabled = (scrollView.zoomScale > scrollView.minimumZoomScale)
         
-        if let delegate = delegate where scrollView.scrollEnabled != oldState {
-            if scrollView.scrollEnabled {
+        if let delegate = delegate , scrollView.isScrollEnabled != oldState {
+            if scrollView.isScrollEnabled {
                 delegate.galleryViewDidEnableScroll(self)
             } else {
                 delegate.galleryViewDidDisableScroll(self)

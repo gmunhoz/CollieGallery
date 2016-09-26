@@ -9,11 +9,11 @@
 import UIKit
 
 /// Class used to create a custom action in the activity controller
-public class CollieGalleryCustomAction: UIActivity {
-    private var customActivityType = ""
-    private var activityName = ""
-    private var activityImageName = ""
-    private var customActionWhenTapped:( (Void)-> Void)!
+open class CollieGalleryCustomAction: UIActivity {
+    fileprivate var customActivityType = ""
+    fileprivate var activityName = ""
+    fileprivate var activityImageName = ""
+    fileprivate var customActionWhenTapped:( (Void)-> Void)!
     
     /**
      
@@ -25,7 +25,7 @@ public class CollieGalleryCustomAction: UIActivity {
             - performAction: The action that should be performed when tapped
 
     */
-    public init(title: String, imageName: String, performAction: (() -> ()) ) {
+    public init(title: String, imageName: String, performAction: @escaping (() -> ()) ) {
         self.activityName = title
         self.activityImageName = imageName
         self.customActivityType = "Action \(title)"
@@ -33,31 +33,31 @@ public class CollieGalleryCustomAction: UIActivity {
         super.init()
     }
     
-    override public func activityType() -> String? {
-        return customActivityType
+    override open var activityType : UIActivityType? {
+        return UIActivityType(rawValue: customActivityType)
     }
     
-    override public func activityTitle() -> String? {
+    override open var activityTitle : String? {
         return activityName
     }
     
-    override public func activityImage() -> UIImage? {
+    override open var activityImage : UIImage? {
         return UIImage(named: activityImageName)
     }
     
-    override public func canPerformWithActivityItems(activityItems: [AnyObject]) -> Bool {
+    override open func canPerform(withActivityItems activityItems: [Any]) -> Bool {
         return true
     }
     
-    override public func prepareWithActivityItems(activityItems: [AnyObject]) {
+    override open func prepare(withActivityItems activityItems: [Any]) {
         // nothing to prepare
     }
     
-    override public func activityViewController() -> UIViewController? {
+    override open var activityViewController : UIViewController? {
         return nil
     }
     
-    override public func performActivity() {
+    override open func perform() {
         customActionWhenTapped()
     }
 }

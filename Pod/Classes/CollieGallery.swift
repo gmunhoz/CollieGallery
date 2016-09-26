@@ -24,29 +24,29 @@
 import UIKit
 
 /// Class used to display the gallery
-public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryViewDelegate {
+open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryViewDelegate {
     
     // MARK: - Private properties
-    private let transitionManager = CollieGalleryTransitionManager()
-    private var theme = CollieGalleryTheme.Dark
-    private var pictures: [CollieGalleryPicture] = []
-    private var pictureViews: [CollieGalleryView] = []
-    private var isShowingLandscapeView: Bool {
-        let orientation = UIApplication.sharedApplication().statusBarOrientation
+    fileprivate let transitionManager = CollieGalleryTransitionManager()
+    fileprivate var theme = CollieGalleryTheme.dark
+    fileprivate var pictures: [CollieGalleryPicture] = []
+    fileprivate var pictureViews: [CollieGalleryView] = []
+    fileprivate var isShowingLandscapeView: Bool {
+        let orientation = UIApplication.shared.statusBarOrientation
         
         switch (orientation) {
-        case UIInterfaceOrientation.LandscapeLeft, UIInterfaceOrientation.LandscapeRight:
+        case UIInterfaceOrientation.landscapeLeft, UIInterfaceOrientation.landscapeRight:
             return true
         default:
             return false
         }
     }
-    private var isShowingActionControls: Bool {
+    fileprivate var isShowingActionControls: Bool {
         get {
-            return !closeButton.hidden
+            return !closeButton.isHidden
         }
     }
-    private var activityController: UIActivityViewController!
+    fileprivate var activityController: UIActivityViewController!
     
     
     // MARK: - Internal properties
@@ -61,31 +61,31 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     // MARK: - Public properties
     
     /// The delegate
-    public weak var delegate: CollieGalleryDelegate?
+    open weak var delegate: CollieGalleryDelegate?
     
     /// The current page index
-    public var currentPageIndex: Int = 0
+    open var currentPageIndex: Int = 0
     
     /// The scrollview used for paging
-    public var pagingScrollView: UIScrollView!
+    open var pagingScrollView: UIScrollView!
     
     /// The close button
-    public var closeButton: UIButton!
+    open var closeButton: UIButton!
     
     /// The action button
-    public var actionButton: UIButton?
+    open var actionButton: UIButton?
     
     /// The view used to show the progress
-    public var progressTrackView: UIView?
+    open var progressTrackView: UIView?
     
     /// The background view of the progress bar
-    public var progressBarView: UIView?
+    open var progressBarView: UIView?
     
     /// The view used to display the title and caption properties
-    public var captionView: CollieGalleryCaptionView!
+    open var captionView: CollieGalleryCaptionView!
     
     /// The currently displayed imageview
-    public var displayedImageView: UIImageView {
+    open var displayedImageView: UIImageView {
         get {
             return displayedView.imageView
         }
@@ -96,7 +96,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         super.init(coder: aDecoder)
     }
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -124,62 +124,62 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - UIViewController functions
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
     
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !UIApplication.sharedApplication().statusBarHidden {
-            UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
+        if !UIApplication.shared.isStatusBarHidden {
+            UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.slide)
         }
         
         scrollToIndex(options.openAtIndex, animated: false)
     }
     
-    public override func viewDidAppear(animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         updateCaptionText()
     }
     
-    public override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         captionView.layoutIfNeeded()
         captionView.setNeedsLayout()
     }
     
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if UIApplication.sharedApplication().statusBarHidden {
-            UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)
+        if UIApplication.shared.isStatusBarHidden {
+            UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.none)
         }
     }
     
-    public override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         clearImagesFarFromIndex(currentPageIndex)
     }
     
-    override public func prefersStatusBarHidden() -> Bool {
+    override open var prefersStatusBarHidden : Bool {
         return true
     }
     
-    public override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
-        coordinator.animateAlongsideTransition({ [weak self] _ in
+        coordinator.animate(alongsideTransition: { [weak self] _ in
                 self?.updateView(size)
             }, completion: nil)
     }
     
     
     // MARK: - Private functions
-    private func setupView() {
+    fileprivate func setupView() {
         view.backgroundColor = theme.backgroundColor
         
         setupScrollView()
@@ -200,31 +200,31 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         
     }
     
-    private func setupScrollView() {
+    fileprivate func setupScrollView() {
         let avaiableSize = getInitialAvaiableSize()
         let scrollFrame = getScrollViewFrame(avaiableSize)
         let contentSize = getScrollViewContentSize(scrollFrame)
         
         pagingScrollView = UIScrollView(frame: scrollFrame)
         pagingScrollView.delegate = self
-        pagingScrollView.pagingEnabled = true
+        pagingScrollView.isPagingEnabled = true
         pagingScrollView.showsHorizontalScrollIndicator = !options.showProgress
-        pagingScrollView.backgroundColor = UIColor.clearColor()
+        pagingScrollView.backgroundColor = UIColor.clear
         pagingScrollView.contentSize = contentSize
         
         switch theme {
-        case .Dark:
-            pagingScrollView.indicatorStyle = .White
-        case .Light:
-            pagingScrollView.indicatorStyle = .Black
+        case .dark:
+            pagingScrollView.indicatorStyle = .white
+        case .light:
+            pagingScrollView.indicatorStyle = .black
         default:
-            pagingScrollView.indicatorStyle = .Default
+            pagingScrollView.indicatorStyle = .default
         }
         
         view.addSubview(pagingScrollView)
     }
     
-    private func setupPictures() {
+    fileprivate func setupPictures() {
         let avaiableSize = getInitialAvaiableSize()
         let scrollFrame = getScrollViewFrame(avaiableSize)
         
@@ -239,7 +239,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    private func setupCloseButton() {
+    fileprivate func setupCloseButton() {
         if self.closeButton != nil {
             self.closeButton.removeFromSuperview()
         }
@@ -251,22 +251,22 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         let closeButton = UIButton(frame: closeButtonFrame)
         if let customImageName = options.customCloseImageName,
             let image = UIImage(named: customImageName) {
-            closeButton.setImage(image, forState: .Normal)
+            closeButton.setImage(image, for: UIControlState())
         } else {
-            closeButton.setTitle("+", forState: .Normal)
+            closeButton.setTitle("+", for: UIControlState())
             closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-            closeButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
-            closeButton.transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
+            closeButton.setTitleColor(theme.closeButtonColor, for: UIControlState())
+            closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4))
         }
-        closeButton.addTarget(self, action: #selector(closeButtonTouched), forControlEvents: .TouchUpInside)
+        closeButton.addTarget(self, action: #selector(closeButtonTouched), for: .touchUpInside)
         
         var shouldBeHidden = false
         
         if self.closeButton != nil {
-            shouldBeHidden = closeButton.hidden
+            shouldBeHidden = closeButton.isHidden
         }
         
-        closeButton.hidden = shouldBeHidden
+        closeButton.isHidden = shouldBeHidden
         
         
         self.closeButton = closeButton
@@ -274,7 +274,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         view.addSubview(self.closeButton)
     }
     
-    private func setupActionButton() {
+    fileprivate func setupActionButton() {
         if let actionButton = self.actionButton {
             actionButton.removeFromSuperview()
         }
@@ -285,23 +285,23 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         let actionButton = UIButton(frame: closeButtonFrame)
         if let customImageName = options.customOptionsImageName,
             let image = UIImage(named: customImageName) {
-            closeButton.setImage(image, forState: .Normal)
+            closeButton.setImage(image, for: UIControlState())
         } else {
-            actionButton.setTitle("•••", forState: .Normal)
+            actionButton.setTitle("•••", for: UIControlState())
             actionButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Thin", size: 15)
-            actionButton.setTitleColor(theme.closeButtonColor, forState: UIControlState.Normal)
+            actionButton.setTitleColor(theme.closeButtonColor, for: UIControlState())
         }
         
-        actionButton.addTarget(self, action: #selector(actionButtonTouched), forControlEvents: .TouchUpInside)
+        actionButton.addTarget(self, action: #selector(actionButtonTouched), for: .touchUpInside)
         
         
         var shouldBeHidden = false
         
         if self.actionButton != nil {
-            shouldBeHidden = self.actionButton!.hidden
+            shouldBeHidden = self.actionButton!.isHidden
         }
         
-        actionButton.hidden = shouldBeHidden
+        actionButton.isHidden = shouldBeHidden
         
         
         self.actionButton = actionButton
@@ -309,7 +309,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         view.addSubview(actionButton)
     }
     
-    private func setupProgressIndicator() {
+    fileprivate func setupProgressIndicator() {
         let avaiableSize = getInitialAvaiableSize()
         let progressFrame = getProgressViewFrame(avaiableSize)
         let progressBarFrame = getProgressInnerViewFrame(progressFrame)
@@ -331,7 +331,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    private func setupCaptionView() {
+    fileprivate func setupCaptionView() {
         let avaiableSize = getInitialAvaiableSize()
         let captionViewFrame = getCaptionViewFrame(avaiableSize)
         
@@ -343,7 +343,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    private func updateView(avaiableSize: CGSize) {
+    fileprivate func updateView(_ avaiableSize: CGSize) {
         pagingScrollView.frame = getScrollViewFrame(avaiableSize)
         pagingScrollView.contentSize = getScrollViewContentSize(pagingScrollView.frame)
         
@@ -370,7 +370,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         updateCaptionText()
     }
     
-    private func loadImagesNextToIndex(index: Int) {
+    fileprivate func loadImagesNextToIndex(_ index: Int) {
         pictureViews[index].loadImage()
         
         let imagesToLoad = options.preLoadedImages
@@ -389,7 +389,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    private func clearImagesFarFromIndex(index: Int) {
+    fileprivate func clearImagesFarFromIndex(_ index: Int) {
         let imagesToLoad = options.preLoadedImages
         let firstIndex = max(index - imagesToLoad, 0)
         let lastIndex = min(index + imagesToLoad, pictureViews.count - 1)
@@ -406,40 +406,40 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         print("\(imagesCleared) images cleared.")
     }
     
-    private func updateContentOffset() {
-        pagingScrollView.setContentOffset(CGPointMake(pagingScrollView.frame.size.width * CGFloat(currentPageIndex), 0), animated: false)
+    fileprivate func updateContentOffset() {
+        pagingScrollView.setContentOffset(CGPoint(x: pagingScrollView.frame.size.width * CGFloat(currentPageIndex), y: 0), animated: false)
     }
     
-    private func getInitialAvaiableSize() -> CGSize {
+    fileprivate func getInitialAvaiableSize() -> CGSize {
         return view.bounds.size
     }
     
-    private func getScrollViewFrame(avaiableSize: CGSize) -> CGRect {
+    fileprivate func getScrollViewFrame(_ avaiableSize: CGSize) -> CGRect {
         let x: CGFloat = -options.gapBetweenPages
         let y: CGFloat = 0.0
         let width: CGFloat = avaiableSize.width + options.gapBetweenPages
         let height: CGFloat = avaiableSize.height
         
-        return CGRectMake(x, y, width, height)
+        return CGRect(x: x, y: y, width: width, height: height)
     }
     
-    private func getScrollViewContentSize(scrollFrame: CGRect) -> CGSize {
+    fileprivate func getScrollViewContentSize(_ scrollFrame: CGRect) -> CGSize {
         let width = scrollFrame.size.width * CGFloat(pictures.count)
         let height = scrollFrame.size.height
         
-        return CGSizeMake(width, height)
+        return CGSize(width: width, height: height)
     }
     
-    private func getPictureFrame(scrollFrame: CGRect, pictureIndex: Int) -> CGRect {
+    fileprivate func getPictureFrame(_ scrollFrame: CGRect, pictureIndex: Int) -> CGRect {
         let x: CGFloat = ((scrollFrame.size.width) * CGFloat(pictureIndex)) + options.gapBetweenPages
         let y: CGFloat = 0.0
         let width: CGFloat = scrollFrame.size.width - (1 * options.gapBetweenPages)
         let height: CGFloat = scrollFrame.size.height
         
-        return CGRectMake(x, y, width, height)
+        return CGRect(x: x, y: y, width: width, height: height)
     }
     
-    private func toggleControlsVisibility() {
+    fileprivate func toggleControlsVisibility() {
         if isShowingActionControls {
             hideControls()
         } else {
@@ -447,14 +447,14 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    private func showControls() {
-        closeButton.hidden = false
-        actionButton?.hidden = false
-        progressTrackView?.hidden = false
-        captionView.hidden = captionView.titleLabel.text == nil && captionView.captionLabel.text == nil
+    fileprivate func showControls() {
+        closeButton.isHidden = false
+        actionButton?.isHidden = false
+        progressTrackView?.isHidden = false
+        captionView.isHidden = captionView.titleLabel.text == nil && captionView.captionLabel.text == nil
         
-        UIView.animateWithDuration(0.2, delay: 0.0,
-                                   options: UIViewAnimationOptions.CurveEaseInOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0,
+                                   options: UIViewAnimationOptions(),
                                    animations: { [weak self] in
                                                     self?.closeButton.alpha = 1.0
                                                     self?.actionButton?.alpha = 1.0
@@ -463,9 +463,9 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
                                    }, completion: nil)
     }
     
-    private func hideControls() {
-        UIView.animateWithDuration(0.2, delay: 0.0,
-                                   options: UIViewAnimationOptions.CurveEaseInOut,
+    fileprivate func hideControls() {
+        UIView.animate(withDuration: 0.2, delay: 0.0,
+                                   options: UIViewAnimationOptions(),
                                    animations: { [weak self] in
                                         self?.closeButton.alpha = 0.0
                                         self?.actionButton?.alpha = 0.0
@@ -473,40 +473,40 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
                                         self?.captionView.alpha = 0.0
                                    },
                                    completion: { [weak self] _ in
-                                        self?.closeButton.hidden = true
-                                        self?.actionButton?.hidden = true
-                                        self?.progressTrackView?.hidden = true
-                                        self?.captionView.hidden = true
+                                        self?.closeButton.isHidden = true
+                                        self?.actionButton?.isHidden = true
+                                        self?.progressTrackView?.isHidden = true
+                                        self?.captionView.isHidden = true
                                    })
     }
     
-    private func getCaptionViewFrame(availableSize: CGSize) -> CGRect {
-        return CGRectMake(0.0, availableSize.height - 70, availableSize.width, 70)
+    fileprivate func getCaptionViewFrame(_ availableSize: CGSize) -> CGRect {
+        return CGRect(x: 0.0, y: availableSize.height - 70, width: availableSize.width, height: 70)
     }
     
-    private func getProgressViewFrame(avaiableSize: CGSize) -> CGRect {
-        return CGRectMake(0.0, avaiableSize.height - 2, avaiableSize.width, 2)
+    fileprivate func getProgressViewFrame(_ avaiableSize: CGSize) -> CGRect {
+        return CGRect(x: 0.0, y: avaiableSize.height - 2, width: avaiableSize.width, height: 2)
     }
     
-    private func getProgressInnerViewFrame(progressFrame: CGRect) -> CGRect {
-        return CGRectMake(0, 0, 0, progressFrame.size.height)
+    fileprivate func getProgressInnerViewFrame(_ progressFrame: CGRect) -> CGRect {
+        return CGRect(x: 0, y: 0, width: 0, height: progressFrame.size.height)
     }
     
-    private func getCloseButtonFrame(avaiableSize: CGSize) -> CGRect {
-        return CGRectMake(0, 0, 50, 50)
+    fileprivate func getCloseButtonFrame(_ avaiableSize: CGSize) -> CGRect {
+        return CGRect(x: 0, y: 0, width: 50, height: 50)
     }
     
-    private func getActionButtonFrame(avaiableSize: CGSize) -> CGRect {
-        return CGRectMake(avaiableSize.width - 50, 0, 50, 50)
+    fileprivate func getActionButtonFrame(_ avaiableSize: CGSize) -> CGRect {
+        return CGRect(x: avaiableSize.width - 50, y: 0, width: 50, height: 50)
     }
     
-    private func getCustomButtonFrame(avaiableSize: CGSize, forIndex index: Int) -> CGRect {
+    fileprivate func getCustomButtonFrame(_ avaiableSize: CGSize, forIndex index: Int) -> CGRect {
         let position = index + 2
         
-        return CGRectMake(avaiableSize.width - CGFloat(50 * position), 0, 50, 50)
+        return CGRect(x: avaiableSize.width - CGFloat(50 * position), y: 0, width: 50, height: 50)
     }
     
-    private func updateCaptionText () {
+    fileprivate func updateCaptionText () {
         let picture = pictures[currentPageIndex]
         
         captionView.titleLabel.text = picture.title
@@ -517,11 +517,11 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - Internal functions
-    @objc internal func closeButtonTouched(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @objc internal func closeButtonTouched(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @objc internal func actionButtonTouched(sender: AnyObject) {
+    @objc internal func actionButtonTouched(_ sender: AnyObject) {
         
         if let customHandleBlock = options.customOptionsBlock {
             customHandleBlock()
@@ -544,9 +544,9 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             
             activityController.popoverPresentationController?.sourceView = view
             activityController.popoverPresentationController?.sourceRect = popOverPresentationRect
-            activityController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.Up
+            activityController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
             
-            presentViewController(activityController, animated: true, completion: nil)
+            present(activityController, animated: true, completion: nil)
             
             activityController.view.layoutIfNeeded()
         }
@@ -554,12 +554,12 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
     
     
     // MARK: - UIScrollView delegate
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         for i in 0 ..< pictureViews.count {
-            pictureViews[i].scrollView.contentOffset = CGPointMake((scrollView.contentOffset.x - pictureViews[i].frame.origin.x + options.gapBetweenPages) * -options.parallaxFactor, 0)
+            pictureViews[i].scrollView.contentOffset = CGPoint(x: (scrollView.contentOffset.x - pictureViews[i].frame.origin.x + options.gapBetweenPages) * -options.parallaxFactor, y: 0)
         }
 
-        if let progressBarView = progressBarView, progressTrackView = progressTrackView {
+        if let progressBarView = progressBarView, let progressTrackView = progressTrackView {
             let maxProgress = progressTrackView.frame.size.width * CGFloat(pictures.count - 1)
             let currentGap = CGFloat(currentPageIndex) * options.gapBetweenPages
             let offset = scrollView.contentOffset.x - currentGap
@@ -568,7 +568,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         }
     }
     
-    public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         
         if page != currentPageIndex {
@@ -583,36 +583,36 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
 
     
     // MARK: - CollieGalleryView delegate
-    func galleryViewTapped(scrollview: CollieGalleryView) {
+    func galleryViewTapped(_ scrollview: CollieGalleryView) {
         let scrollView = pictureViews[currentPageIndex].scrollView
         
-        if scrollView.zoomScale == scrollView.minimumZoomScale {
+        if scrollView?.zoomScale == scrollView?.minimumZoomScale {
             toggleControlsVisibility()
             
         }
     }
     
-    func galleryViewPressed(scrollview: CollieGalleryView) {
+    func galleryViewPressed(_ scrollview: CollieGalleryView) {
         if options.enableSave {
             showControls()
             showShareActivity()
         }
     }
     
-    func galleryViewDidRestoreZoom(galleryView: CollieGalleryView) {
+    func galleryViewDidRestoreZoom(_ galleryView: CollieGalleryView) {
         showControls()
     }
     
-    func galleryViewDidZoomIn(galleryView: CollieGalleryView) {
+    func galleryViewDidZoomIn(_ galleryView: CollieGalleryView) {
         hideControls()
     }
     
-    func galleryViewDidEnableScroll(galleryView: CollieGalleryView) {
-        pagingScrollView.scrollEnabled = false
+    func galleryViewDidEnableScroll(_ galleryView: CollieGalleryView) {
+        pagingScrollView.isScrollEnabled = false
     }
     
-    func galleryViewDidDisableScroll(galleryView: CollieGalleryView) {
-        pagingScrollView.scrollEnabled = true
+    func galleryViewDidDisableScroll(_ galleryView: CollieGalleryView) {
+        pagingScrollView.isScrollEnabled = true
     }
     
     
@@ -627,10 +627,10 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             - animated: Indicates if it should be animated or not
 
     */
-    public func scrollToIndex(index: Int, animated: Bool = true) {
+    open func scrollToIndex(_ index: Int, animated: Bool = true) {
         currentPageIndex = index
         loadImagesNextToIndex(currentPageIndex)
-        pagingScrollView.setContentOffset(CGPointMake(pagingScrollView.frame.size.width * CGFloat(index), 0), animated: animated)
+        pagingScrollView.setContentOffset(CGPoint(x: pagingScrollView.frame.size.width * CGFloat(index), y: 0), animated: animated)
     }
     
     /**
@@ -642,7 +642,7 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
             - transitionType: The transition type used to present the gallery
      
     */
-    public func presentInViewController(sourceViewController: UIViewController, transitionType: CollieGalleryTransitionType? = nil) {
+    open func presentInViewController(_ sourceViewController: UIViewController, transitionType: CollieGalleryTransitionType? = nil) {
         
         let type = transitionType == nil ? CollieGalleryTransitionType.defaultType : transitionType!
         
@@ -651,9 +651,9 @@ public class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGaller
         transitionManager.sourceViewController = sourceViewController
         transitionManager.targetViewController = self
         
-        modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+        modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         transitioningDelegate = transitionManager
         
-        sourceViewController.presentViewController(self, animated: type.animated, completion: nil)
+        sourceViewController.present(self, animated: type.animated, completion: nil)
     }
 }

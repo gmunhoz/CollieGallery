@@ -28,47 +28,47 @@ class OptionsTableViewController: UITableViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateValues()
     }
     
-    @IBAction func progressSwitchChanged(sender: UISwitch) {
-        CollieGalleryOptions.sharedOptions.showProgress = sender.on
+    @IBAction func progressSwitchChanged(_ sender: UISwitch) {
+        CollieGalleryOptions.sharedOptions.showProgress = sender.isOn
     }
     
-    @IBAction func zoomSwitchChanged(sender: UISwitch) {
-        CollieGalleryOptions.sharedOptions.enableZoom = sender.on
+    @IBAction func zoomSwitchChanged(_ sender: UISwitch) {
+        CollieGalleryOptions.sharedOptions.enableZoom = sender.isOn
     }
     
-    @IBAction func saveSwitchChanged(sender: UISwitch) {
-        CollieGalleryOptions.sharedOptions.enableSave = sender.on
+    @IBAction func saveSwitchChanged(_ sender: UISwitch) {
+        CollieGalleryOptions.sharedOptions.enableSave = sender.isOn
     }
     
-    @IBAction func interactiveDismissSwitchChanged(sender: UISwitch) {
-        CollieGalleryOptions.sharedOptions.enableInteractiveDismiss = sender.on
+    @IBAction func interactiveDismissSwitchChanged(_ sender: UISwitch) {
+        CollieGalleryOptions.sharedOptions.enableInteractiveDismiss = sender.isOn
     }
     
-    @IBAction func zoomScaleChanged(sender: UISlider) {
+    @IBAction func zoomScaleChanged(_ sender: UISlider) {
         let zoomScale = CGFloat(sender.value)
         CollieGalleryOptions.sharedOptions.maximumZoomScale = zoomScale
         self.updateZoomScaleLabel()
     }
     
-    @IBAction func preLoadedImagesChanged(sender: UISlider) {
+    @IBAction func preLoadedImagesChanged(_ sender: UISlider) {
         let preLoadedImages = Int(sender.value)
         CollieGalleryOptions.sharedOptions.preLoadedImages = preLoadedImages
         self.updatePreLoadedImagesLabel()
         
     }
     
-    @IBAction func parallaxFactorChanged(sender: UISlider) {
+    @IBAction func parallaxFactorChanged(_ sender: UISlider) {
         let parallaxFactor = CGFloat(sender.value)
         CollieGalleryOptions.sharedOptions.parallaxFactor = parallaxFactor
         self.updateParallaxFactorLabel()
     }
     
-    @IBAction func gapBetweenPagesChanged(sender: UISlider) {
+    @IBAction func gapBetweenPagesChanged(_ sender: UISlider) {
         let gapBetweenPages = CGFloat(sender.value)
         CollieGalleryOptions.sharedOptions.gapBetweenPages = gapBetweenPages
         self.updateGapBetweenPagesLabel()
@@ -112,19 +112,19 @@ class OptionsTableViewController: UITableViewController {
     }
     
     func updateProgressSwitch() {
-        self.progressSwitch.on = CollieGalleryOptions.sharedOptions.showProgress
+        self.progressSwitch.isOn = CollieGalleryOptions.sharedOptions.showProgress
     }
     
     func updateZoomSwitch() {
-        self.zoomSwitch.on = CollieGalleryOptions.sharedOptions.enableZoom
+        self.zoomSwitch.isOn = CollieGalleryOptions.sharedOptions.enableZoom
     }
     
     func updateSaveSwitch() {
-        self.saveSwitch.on = CollieGalleryOptions.sharedOptions.enableSave
+        self.saveSwitch.isOn = CollieGalleryOptions.sharedOptions.enableSave
     }
     
     func updateInteractiveDismissSwitch() {
-        self.interactiveDismissSwitch.on = CollieGalleryOptions.sharedOptions.enableInteractiveDismiss
+        self.interactiveDismissSwitch.isOn = CollieGalleryOptions.sharedOptions.enableInteractiveDismiss
     }
     
     func updateMaxZoomScaleSlider() {
@@ -143,7 +143,7 @@ class OptionsTableViewController: UITableViewController {
         self.gapBetweenPagesSlider.value = Float(CollieGalleryOptions.sharedOptions.gapBetweenPages)
     }
     
-    @IBAction func resetTapped(sender: UIBarButtonItem) {
+    @IBAction func resetTapped(_ sender: UIBarButtonItem) {
         CollieGalleryOptions.sharedOptions = CollieGalleryOptions()
         updateValues()
     }

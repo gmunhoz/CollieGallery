@@ -30,14 +30,14 @@ public protocol CollieGalleryZoomTransitionDelegate {
     func zoomTransitionContainerBounds() -> CGRect
         
     /// Called in the dismissal to indicate which view should be used to zoom out
-    func zoomTransitionViewToDismissForIndex(index: Int) -> UIView?
+    func zoomTransitionViewToDismissForIndex(_ index: Int) -> UIView?
 }
 
-public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
+open class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
     
     // MARK: - Private properties
-    private var fromView: UIView
-    private let offStage: CGFloat = 100.0
+    fileprivate var fromView: UIView
+    fileprivate let offStage: CGFloat = 100.0
     
     // MARK: - Internal properties
     internal var zoomTransitionDelegate: CollieGalleryZoomTransitionDelegate
@@ -61,12 +61,12 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
     
     
     // MARK: - CollieGalleryTransitionProtocol
-    internal func animatePresentationWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
-        let presentedController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as! CollieGallery
-        let presentedControllerView = transitionContext.viewForKey(UITransitionContextToViewKey)!
-        let containerView = transitionContext.containerView()
+    internal func animatePresentationWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval) {
+        let presentedController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as! CollieGallery
+        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
+        let containerView = transitionContext.containerView
         
-        presentedController.view.backgroundColor = presentedController.view.backgroundColor?.colorWithAlphaComponent(0.0)
+        presentedController.view.backgroundColor = presentedController.view.backgroundColor?.withAlphaComponent(0.0)
         
         presentedController.closeButton.center.x -= self.offStage
         presentedController.actionButton?.center.x += self.offStage
@@ -79,32 +79,32 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
         
         containerView.addSubview(presentedControllerView)
         
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
             
-            presentedController.view.backgroundColor = presentedController.view.backgroundColor?.colorWithAlphaComponent(1.0)
+            presentedController.view.backgroundColor = presentedController.view.backgroundColor?.withAlphaComponent(1.0)
             presentedController.closeButton.center.x += self.offStage
             presentedController.actionButton?.center.x -= self.offStage
             presentedController.progressTrackView?.center.y -= self.offStage
             presentedController.captionView.center.y -= self.offStage
-            presentedController.displayedImageView.transform = CGAffineTransformIdentity
+            presentedController.displayedImageView.transform = CGAffineTransform.identity
             
             }, completion: {(completed: Bool) -> Void in
                 transitionContext.completeTransition(completed)
         })
     }
     
-    internal func animateDismissalWithTransitionContext(transitionContext: UIViewControllerContextTransitioning, duration: NSTimeInterval) {
-        let presentingController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! CollieGallery
-        let presentingControllerView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        let containerView = transitionContext.containerView()
+    internal func animateDismissalWithTransitionContext(_ transitionContext: UIViewControllerContextTransitioning, duration: TimeInterval) {
+        let presentingController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as! CollieGallery
+        let presentingControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        let containerView = transitionContext.containerView
         
         containerView.addSubview(presentingControllerView)
         
         let dismissView: UIView? = self.zoomTransitionDelegate.zoomTransitionViewToDismissForIndex(presentingController.currentPageIndex)
         
-        UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .AllowUserInteraction, animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .allowUserInteraction, animations: {
             
-            presentingController.view.backgroundColor = presentingController.view.backgroundColor?.colorWithAlphaComponent(0.0)
+            presentingController.view.backgroundColor = presentingController.view.backgroundColor?.withAlphaComponent(0.0)
             presentingController.closeButton.center.x -= self.offStage
             presentingController.actionButton?.center.x += self.offStage
             presentingController.progressTrackView?.center.y += self.offStage
@@ -115,7 +115,7 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
             presentingController.displayedImageView.transform = self.generateTransformFromImageRect(fromRect, targetView: dismissView, containerBounds: containerBounds)
             
             }, completion: {(completed: Bool) -> Void in
-                if(transitionContext.transitionWasCancelled()){
+                if(transitionContext.transitionWasCancelled){
                     transitionContext.completeTransition(false)
                     
                 }
@@ -126,19 +126,19 @@ public class CollieGalleryZoomTransition: CollieGalleryTransitionProtocol {
         })
     }
     
-    private func generateTransformFromImageRect(imageRect: CGRect, targetView: UIView?, containerBounds: CGRect?) -> CGAffineTransform {
+    fileprivate func generateTransformFromImageRect(_ imageRect: CGRect, targetView: UIView?, containerBounds: CGRect?) -> CGAffineTransform {
         if let view = targetView {
-            let rectInWindow =  self.fromView.superview?.convertRect(view.frame, toView: nil)
+            let rectInWindow =  self.fromView.superview?.convert(view.frame, to: nil)
     
             if let toRect = rectInWindow, let bounds = containerBounds {
-                if CGRectContainsRect(bounds, toRect) {
-                    let scales = CGSizeMake(toRect.size.width/imageRect.size.width, toRect.size.height/imageRect.size.height)
-                    let offset = CGPointMake(CGRectGetMidX(toRect) - CGRectGetMidX(imageRect), CGRectGetMidY(toRect) - CGRectGetMidY(imageRect))
-                    return CGAffineTransformMake(scales.width, 0, 0, scales.height, offset.x, offset.y)
+                if bounds.contains(toRect) {
+                    let scales = CGSize(width: toRect.size.width/imageRect.size.width, height: toRect.size.height/imageRect.size.height)
+                    let offset = CGPoint(x: toRect.midX - imageRect.midX, y: toRect.midY - imageRect.midY)
+                    return CGAffineTransform(a: scales.width, b: 0, c: 0, d: scales.height, tx: offset.x, ty: offset.y)
                 }
             }
         }
         
-        return CGAffineTransformMakeScale(0.001, 0.001)
+        return CGAffineTransform(scaleX: 0.001, y: 0.001)
     }
 }

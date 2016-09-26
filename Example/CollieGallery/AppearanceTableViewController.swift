@@ -22,22 +22,22 @@ class AppearanceTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func themeChanged(sender: UISegmentedControl) {
+    @IBAction func themeChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            CollieGalleryTheme.defaultTheme = CollieGalleryTheme.Dark
+            CollieGalleryTheme.defaultTheme = CollieGalleryTheme.dark
             
         } else {
-            CollieGalleryTheme.defaultTheme = CollieGalleryTheme.Light
+            CollieGalleryTheme.defaultTheme = CollieGalleryTheme.light
             
         }
     }
     
-    @IBAction func transitionTypeChanged(sender: UISegmentedControl) {
+    @IBAction func transitionTypeChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            CollieGalleryTransitionType.defaultType = CollieGalleryTransitionType.Default
+            CollieGalleryTransitionType.defaultType = CollieGalleryTransitionType.default
             
         } else {
-            CollieGalleryTransitionType.defaultType = CollieGalleryTransitionType.None
+            CollieGalleryTransitionType.defaultType = CollieGalleryTransitionType.none
             
         }
     }
