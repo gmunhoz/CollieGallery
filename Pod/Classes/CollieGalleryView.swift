@@ -26,7 +26,7 @@ import UIKit
 internal class CollieGalleryView: UIView, UIScrollViewDelegate {
     
     // MARK: - Internal properties
-    var delegate: CollieGalleryViewDelegate?
+    weak var delegate: CollieGalleryViewDelegate?
     var picture: CollieGalleryPicture!
     var scrollView: UIScrollView!
     var imageView: UIImageView!
