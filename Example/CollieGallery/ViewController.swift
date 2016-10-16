@@ -20,7 +20,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
     @IBAction func showWithLocalImagesTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
-        for i in 1 ..< 5 {
+        for i in 1 ..< 6 {
             let image = UIImage(named: "\(i).jpg")!
     
             let picture = CollieGalleryPicture(image: image, title: "", caption: "")
@@ -36,7 +36,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
     @IBAction func showWithRemoteImagesTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
 
-        for i in 1 ..< 5 {
+        for i in 1 ..< 6 {
             let url = "http://gmunhoz.com/public/controls/CollieGallery/images/\(i).jpg"
             let picture = CollieGalleryPicture(url: url, placeholder: nil, title: "Remote Image \(i)", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies felis id eros commodo interdum. Curabitur ornare semper aliquet. Curabitur sit amet est condimentum, scelerisque turpis vitae, tempus nulla. Nulla facilisi. Sed faucibus dictum elit, vitae tempus felis luctus eu. Ut in lacus ante. Duis egestas mauris in lacus gravida aliquet.")
             pictures.append(picture)
@@ -49,7 +49,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
     @IBAction func showWithCustomButton(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
-        for i in 1 ..< 5 {
+        for i in 1 ..< 6 {
             let image = UIImage(named: "\(i).jpg")!
             
             let picture = CollieGalleryPicture(image: image)
@@ -76,7 +76,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
     @IBAction func showFromImageTapped(_ sender: UIButton) {
         var pictures = [CollieGalleryPicture]()
         
-        for i in 1 ..< 5 {
+        for i in 1 ..< 6 {
             let image = UIImage(named: "\(i).jpg")!
             let picture = CollieGalleryPicture(image: image)
             pictures.append(picture)
