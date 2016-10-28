@@ -136,6 +136,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
             UIApplication.shared.setStatusBarHidden(true, with: UIStatusBarAnimation.slide)
         }
         
+        pagingScrollView.delegate = self
         scrollToIndex(options.openAtIndex, animated: false)
     }
     
@@ -158,6 +159,8 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         if UIApplication.shared.isStatusBarHidden {
             UIApplication.shared.setStatusBarHidden(false, with: UIStatusBarAnimation.none)
         }
+        
+        pagingScrollView.delegate = nil
     }
     
     open override func didReceiveMemoryWarning() {
@@ -206,7 +209,6 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         let contentSize = getScrollViewContentSize(scrollFrame)
         
         pagingScrollView = UIScrollView(frame: scrollFrame)
-        pagingScrollView.delegate = self
         pagingScrollView.isPagingEnabled = true
         pagingScrollView.showsHorizontalScrollIndicator = !options.showProgress
         pagingScrollView.backgroundColor = UIColor.clear
