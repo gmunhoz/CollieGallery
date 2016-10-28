@@ -24,10 +24,10 @@
 import UIKit
 
 internal protocol CollieGalleryViewDelegate {
-    func galleryViewTapped(galleryView: CollieGalleryView)
-    func galleryViewPressed(galleryView: CollieGalleryView)
-    func galleryViewDidZoomIn(galleryView: CollieGalleryView)
-    func galleryViewDidRestoreZoom(galleryView: CollieGalleryView)
-    func galleryViewDidEnableScroll(galleryView: CollieGalleryView)
-    func galleryViewDidDisableScroll(galleryView: CollieGalleryView)
+    func galleryViewTapped(_ galleryView: CollieGalleryView)
+    func galleryViewPressed(_ galleryView: CollieGalleryView)
+    func galleryViewDidZoomIn(_ galleryView: CollieGalleryView)
+    func galleryViewDidRestoreZoom(_ galleryView: CollieGalleryView)
+    func galleryViewDidEnableScroll(_ galleryView: CollieGalleryView)
+    func galleryViewDidDisableScroll(_ galleryView: CollieGalleryView)
 }
