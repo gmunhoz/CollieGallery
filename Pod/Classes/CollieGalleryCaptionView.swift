@@ -12,6 +12,7 @@ import UIKit
 open class CollieGalleryCaptionView: UIView {
     
     fileprivate var isExpanded = false
+    internal var showFullCaption: Bool = false
     
     /// The title label
     var titleLabel: UILabel!
@@ -35,8 +36,14 @@ open class CollieGalleryCaptionView: UIView {
     
     /// Toggle the visibility and adjusts the view size
     open func adjustView() {
-        isExpanded = false
-        captionLabel.numberOfLines = 1
+        
+        if showFullCaption {
+            isExpanded = true
+            captionLabel.numberOfLines = 0
+        } else {
+            isExpanded = false
+            captionLabel.numberOfLines = 1
+        }
         
         isHidden = titleLabel.text == nil && captionLabel.text == nil
         
@@ -44,8 +51,11 @@ open class CollieGalleryCaptionView: UIView {
     }
     
     fileprivate func setupGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
-        addGestureRecognizer(tapGesture)
+        
+        if showFullCaption == false {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
+            addGestureRecognizer(tapGesture)
+        }
     }
     
     fileprivate func setupView() {
@@ -90,6 +100,7 @@ open class CollieGalleryCaptionView: UIView {
     
     /// Called when the caption view is tapped
     func viewTapped(_ recognizer: UITapGestureRecognizer) {
+        
         if !isExpanded {
             isExpanded = true
             captionLabel.numberOfLines = 0
