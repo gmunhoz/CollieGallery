@@ -52,10 +52,8 @@ open class CollieGalleryCaptionView: UIView {
     
     fileprivate func setupGestures() {
         
-        if showFullCaption == false {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
-            addGestureRecognizer(tapGesture)
-        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
+        addGestureRecognizer(tapGesture)
     }
     
     fileprivate func setupView() {
@@ -101,15 +99,17 @@ open class CollieGalleryCaptionView: UIView {
     /// Called when the caption view is tapped
     func viewTapped(_ recognizer: UITapGestureRecognizer) {
         
-        if !isExpanded {
-            isExpanded = true
-            captionLabel.numberOfLines = 0
-        } else {
-            isExpanded = false
-            captionLabel.numberOfLines = 1
-            captionLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+        if !showFullCaption {
+            if !isExpanded {
+                isExpanded = true
+                captionLabel.numberOfLines = 0
+            } else {
+                isExpanded = false
+                captionLabel.numberOfLines = 1
+                captionLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+            }
+            adjustViewSize()
         }
-        adjustViewSize()
     }
     
     fileprivate func adjustViewSize() {
