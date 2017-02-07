@@ -338,7 +338,10 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         let captionViewFrame = getCaptionViewFrame(avaiableSize)
         
         let captionView = CollieGalleryCaptionView(frame: captionViewFrame)
+        
         self.captionView = captionView
+        
+        self.captionView.showFullCaption = self.options.showFullCaption
         
         if options.showCaptionView {
             view.addSubview(self.captionView)

@@ -12,6 +12,7 @@ import UIKit
 open class CollieGalleryCaptionView: UIView {
     
     fileprivate var isExpanded = false
+    internal var showFullCaption: Bool = false
     
     /// The title label
     var titleLabel: UILabel!
@@ -35,8 +36,14 @@ open class CollieGalleryCaptionView: UIView {
     
     /// Toggle the visibility and adjusts the view size
     open func adjustView() {
-        isExpanded = false
-        captionLabel.numberOfLines = 1
+        
+        if showFullCaption {
+            isExpanded = true
+            captionLabel.numberOfLines = 0
+        } else {
+            isExpanded = false
+            captionLabel.numberOfLines = 1
+        }
         
         isHidden = titleLabel.text == nil && captionLabel.text == nil
         
@@ -44,6 +51,7 @@ open class CollieGalleryCaptionView: UIView {
     }
     
     fileprivate func setupGestures() {
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(CollieGalleryCaptionView.viewTapped(_:)))
         addGestureRecognizer(tapGesture)
     }
@@ -62,7 +70,11 @@ open class CollieGalleryCaptionView: UIView {
         captionLabel = UILabel()
         captionLabel.font = UIFont(name: "HelveticaNeue", size: 13)
         captionLabel.textColor = UIColor.gray
-        captionLabel.numberOfLines = 1
+        if showFullCaption {
+            captionLabel.numberOfLines = 0
+        } else {
+            captionLabel.numberOfLines = 1
+        }
         captionLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         captionLabel.translatesAutoresizingMaskIntoConstraints = false
         captionLabel.isUserInteractionEnabled = false
@@ -90,22 +102,28 @@ open class CollieGalleryCaptionView: UIView {
     
     /// Called when the caption view is tapped
     func viewTapped(_ recognizer: UITapGestureRecognizer) {
-        if !isExpanded {
-            isExpanded = true
-            captionLabel.numberOfLines = 0
-        } else {
-            isExpanded = false
-            captionLabel.numberOfLines = 1
-            captionLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+        
+        if !showFullCaption {
+            if !isExpanded {
+                isExpanded = true
+                captionLabel.numberOfLines = 0
+            } else {
+                isExpanded = false
+                captionLabel.numberOfLines = 1
+                captionLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
+            }
         }
         adjustViewSize()
     }
     
     fileprivate func adjustViewSize() {
         captionLabel.sizeToFit()
+        
+        let captionSize = captionLabel.sizeThatFits(CGSize(width: UIScreen.main.bounds.size.width - 10, height: CGFloat.greatestFiniteMagnitude))
+        
         let screenSize = UIScreen.main.bounds.size
         let contentSize: CGFloat = titleLabel.frame.size.height
-                                        + captionLabel.frame.size.height + 30.0
+                                        + captionSize.height + 30.0
         UIView.animate(withDuration: 0.5, delay: 0.0,
                                    options: UIViewAnimationOptions(),
                                    animations: { [weak self] in

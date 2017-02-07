@@ -73,4 +73,7 @@ open class CollieGalleryOptions: NSObject {
     
     /// Default actions to exclude from the gallery actions (UIActivityType Constants)
     open var excludedActions: [UIActivityType] = []
+    
+    /// Always show full Caption view
+    open var showFullCaption: Bool = false
 }
