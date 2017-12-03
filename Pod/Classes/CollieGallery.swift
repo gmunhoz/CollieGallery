@@ -524,11 +524,19 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         if let progressBarView = progressBarView,
            let progressTrackView = progressTrackView,
            let scrollView = self.pagingScrollView {
-            let maxProgress = progressTrackView.frame.size.width * CGFloat(pictures.count - 1)
-            let currentGap = CGFloat(currentPageIndex) * options.gapBetweenPages
-            let offset = scrollView.contentOffset.x - currentGap
-            let progress = (maxProgress - (maxProgress - offset)) / CGFloat(pictures.count - 1)
-            progressBarView.frame.size.width = max(progress, 0)
+
+            if pictures.count > 1 {
+                let maxProgress = progressTrackView.frame.size.width * CGFloat(pictures.count - 1)
+                let currentGap = CGFloat(currentPageIndex) * options.gapBetweenPages
+                let offset = scrollView.contentOffset.x - currentGap
+                let progress = (maxProgress - (maxProgress - offset)) / CGFloat(pictures.count - 1)
+                progressBarView.frame.size.width = max(progress, 0)
+
+            } else if pictures.count == 1 {
+                progressBarView.frame.size.width = progressTrackView.frame.size.width
+
+            }
+
         }
     }
     
