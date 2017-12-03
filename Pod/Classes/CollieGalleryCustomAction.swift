@@ -13,7 +13,7 @@ open class CollieGalleryCustomAction: UIActivity {
     fileprivate var customActivityType = ""
     fileprivate var activityName = ""
     fileprivate var activityImageName = ""
-    fileprivate var customActionWhenTapped:( (Void)-> Void)!
+    fileprivate var customActionWhenTapped:( ()-> Void)!
     
     /**
      

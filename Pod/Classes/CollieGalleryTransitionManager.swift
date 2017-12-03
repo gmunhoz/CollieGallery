@@ -46,7 +46,7 @@ UIViewControllerTransitioningDelegate  {
     
     
     // MARK: - Internal functions
-    internal func handlePan(_ pan: UIPanGestureRecognizer){
+    @objc internal func handlePan(_ pan: UIPanGestureRecognizer){
         if transitionType.transition != nil {
             let translation = pan.translation(in: pan.view!)
             

@@ -89,7 +89,7 @@ open class CollieGalleryCaptionView: UIView {
     }
     
     /// Called when the caption view is tapped
-    func viewTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
         if !isExpanded {
             isExpanded = true
             captionLabel.numberOfLines = 0

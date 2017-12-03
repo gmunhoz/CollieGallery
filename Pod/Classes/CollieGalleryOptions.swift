@@ -66,7 +66,7 @@ open class CollieGalleryOptions: NSObject {
     open var enableInteractiveDismiss: Bool = true
     
     /// Add fire custom block instead of showing default share menu
-    open var customOptionsBlock: ((Void) -> Void)?
+    open var customOptionsBlock: (() -> Void)?
     
     /// Array with the custom buttons
     open var customActions: [CollieGalleryCustomAction] = []

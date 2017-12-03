@@ -261,7 +261,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
             closeButton.setTitle("+", for: UIControlState())
             closeButton.titleLabel!.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
             closeButton.setTitleColor(theme.closeButtonColor, for: UIControlState())
-            closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_4))
+            closeButton.transform = CGAffineTransform(rotationAngle: CGFloat(CGFloat.pi / 4))
         }
         closeButton.addTarget(self, action: #selector(closeButtonTouched), for: .touchUpInside)
         

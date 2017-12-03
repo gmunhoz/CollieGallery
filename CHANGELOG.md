@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.6.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.6.0)
+- New features:
+    - Swift 4.0 support
+
 ## [0.5.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.5.1)
 - Bug fixes:
     - Fixing a bug with scrollToIndex(). [(Issue #14)](https://github.com/gmunhoz/CollieGallery/issues/14)
