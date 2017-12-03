@@ -10,8 +10,8 @@ end
 
 target 'CollieGallery_Tests' do
     pod 'CollieGallery', :path => '../'
-    pod 'Quick', '0.10.0’
-    pod 'Nimble', '5.0.0'
+    pod 'Quick', '1.2.0'
+    pod 'Nimble', '7.0.3'
 end
 
 post_install do |installer|

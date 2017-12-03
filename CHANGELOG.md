@@ -1,8 +1,16 @@
 # Changelog
 
+## [0.5.1](https://github.com/gmunhoz/CollieGallery/releases/tag/0.5.1)
+- Bug fixes:
+    - Fixing a bug with scrollToIndex(). [(Issue #14)](https://github.com/gmunhoz/CollieGallery/issues/14)
+
+## [0.5.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.5.0)
+- New features:
+    - Swift 3.0 support
+
 ## [0.4.0](https://github.com/gmunhoz/CollieGallery/releases/tag/0.4.0)
 - New features:
-- Swift 2.3 support
+    - Swift 2.3 support
 
 ## [0.3.3](https://github.com/gmunhoz/CollieGallery/releases/tag/0.3.3)
 - New features:

@@ -137,7 +137,10 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         }
         
         pagingScrollView.delegate = self
-        scrollToIndex(options.openAtIndex, animated: false)
+        
+        if self.pagingScrollView.contentOffset.x == 0.0 {
+            scrollToIndex(options.openAtIndex, animated: false)
+        }
     }
     
     open override func viewDidAppear(_ animated: Bool) {
@@ -516,6 +519,18 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         
         captionView.adjustView()
     }
+
+    fileprivate func updateProgressBar() {
+        if let progressBarView = progressBarView,
+           let progressTrackView = progressTrackView,
+           let scrollView = self.pagingScrollView {
+            let maxProgress = progressTrackView.frame.size.width * CGFloat(pictures.count - 1)
+            let currentGap = CGFloat(currentPageIndex) * options.gapBetweenPages
+            let offset = scrollView.contentOffset.x - currentGap
+            let progress = (maxProgress - (maxProgress - offset)) / CGFloat(pictures.count - 1)
+            progressBarView.frame.size.width = max(progress, 0)
+        }
+    }
     
     
     // MARK: - Internal functions
@@ -561,13 +576,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
             pictureViews[i].scrollView.contentOffset = CGPoint(x: (scrollView.contentOffset.x - pictureViews[i].frame.origin.x + options.gapBetweenPages) * -options.parallaxFactor, y: 0)
         }
 
-        if let progressBarView = progressBarView, let progressTrackView = progressTrackView {
-            let maxProgress = progressTrackView.frame.size.width * CGFloat(pictures.count - 1)
-            let currentGap = CGFloat(currentPageIndex) * options.gapBetweenPages
-            let offset = scrollView.contentOffset.x - currentGap
-            let progress = (maxProgress - (maxProgress - offset)) / CGFloat(pictures.count - 1)
-            progressBarView.frame.size.width = max(progress, 0)
-        }
+        updateProgressBar()
     }
     
     open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -633,6 +642,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         currentPageIndex = index
         loadImagesNextToIndex(currentPageIndex)
         pagingScrollView.setContentOffset(CGPoint(x: pagingScrollView.frame.size.width * CGFloat(index), y: 0), animated: animated)
+        updateProgressBar()
     }
     
     /**

@@ -29,7 +29,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
 
         let gallery = CollieGallery(pictures: pictures)
         gallery.delegate = self
-        
+
         gallery.presentInViewController(self)
     }
     
