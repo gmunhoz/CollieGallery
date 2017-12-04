@@ -454,7 +454,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     
     fileprivate func showControls() {
         closeButton.isHidden = false
-        actionButton?.isHidden = false
+        actionButton?.isHidden = true
         progressTrackView?.isHidden = false
         captionView.isHidden = captionView.titleLabel.text == nil && captionView.captionLabel.text == nil
         

@@ -44,6 +44,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         
         let gallery = CollieGallery(pictures: pictures)
         gallery.presentInViewController(self)
+        gallery.actionButton?.isHidden = true
     }
     
     @IBAction func showWithCustomButton(_ sender: UIButton) {
@@ -71,6 +72,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         gallery.delegate = self
         
         gallery.presentInViewController(self)
+        gallery.actionButton?.isHidden = true
     }
     
     @IBAction func showFromImageTapped(_ sender: UIButton) {
@@ -94,6 +96,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         
         let gallery = CollieGallery(pictures: pictures, options: options)
         gallery.presentInViewController(self, transitionType: CollieGalleryTransitionType.zoom(fromView: sender, zoomTransitionDelegate: self))
+         gallery.actionButton?.isHidden = true
     }
     
     func zoomTransitionContainerBounds() -> CGRect {
