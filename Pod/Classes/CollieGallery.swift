@@ -59,6 +59,8 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     
     
     // MARK: - Public properties
+    //Action button hide statusAction
+    open var actionButtonHidden = false
     
     /// The delegate
     open weak var delegate: CollieGalleryDelegate?
@@ -312,6 +314,10 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
         self.actionButton = actionButton
         
         view.addSubview(actionButton)
+        
+        if self.actionButtonHidden{
+           self.actionButton.isHidden = self.actionButtonHidden
+        }
     }
     
     fileprivate func setupProgressIndicator() {
@@ -454,7 +460,7 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     
     fileprivate func showControls() {
         closeButton.isHidden = false
-        actionButton?.isHidden = true
+        actionButton?.isHidden = self.actionButtonHidden
         progressTrackView?.isHidden = false
         captionView.isHidden = captionView.titleLabel.text == nil && captionView.captionLabel.text == nil
         
