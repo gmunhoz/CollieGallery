@@ -80,7 +80,14 @@ optional func gallery(gallery: CollieGallery, indexChangedTo index: Int)
 
 ## Customization
 
-### Options
+### Without Options
+
+* *actionButtonHidden*: Hide action button visible on right side top corner
+* *closeButtonHidden*: Hide close button visible on left side top corner
+* *actionButtonAlwaysVisible*: Unhide close button visible on left side top corner
+* *closeButtonAlwaysVisible*: Unhide close button visible on left side top corner
+
+### With Options
 
 The available options for customization are:
 
@@ -94,7 +101,6 @@ The available options for customization are:
 * *enableInteractiveDismiss*: Indicates if the user should be able to dismiss the gallery interactively with a pan gesture.
 * *customActions*: Array with your custom actions that will be displayed in the actions dialog.
 * *excludedActions*: Array with the system actions that should not be displayed in the actions dialog.
-* *actionButtonHidden*: Hide/Unhide action button visible on right side top corner
 
 
 To change the way CollieGallery works you should use the CollieGalleryOptions class. You can change the options in two ways:
