@@ -80,7 +80,14 @@ optional func gallery(gallery: CollieGallery, indexChangedTo index: Int)
 
 ## Customization
 
-### Options
+### Without Options
+
+* *actionButtonHidden*: Hide action button visible on right side top corner
+* *closeButtonHidden*: Hide close button visible on left side top corner
+* *actionButtonAlwaysVisible*: Unhide close button visible on left side top corner
+* *closeButtonAlwaysVisible*: Unhide close button visible on left side top corner
+
+### With Options
 
 The available options for customization are:
 

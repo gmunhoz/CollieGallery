@@ -43,6 +43,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         }
         
         let gallery = CollieGallery(pictures: pictures)
+        gallery.actionButtonHidden = true
         gallery.presentInViewController(self)
     }
     
@@ -69,7 +70,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         
         let gallery = CollieGallery(pictures: pictures, options: options)
         gallery.delegate = self
-        
+        gallery.actionButtonHidden = true
         gallery.presentInViewController(self)
     }
     
@@ -93,6 +94,7 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         } as (() -> Void)
         
         let gallery = CollieGallery(pictures: pictures, options: options)
+        gallery.actionButtonHidden = true
         gallery.presentInViewController(self, transitionType: CollieGalleryTransitionType.zoom(fromView: sender, zoomTransitionDelegate: self))
     }
     
