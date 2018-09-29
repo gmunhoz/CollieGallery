@@ -33,8 +33,8 @@ open class CollieGalleryCustomAction: UIActivity {
         super.init()
     }
     
-    override open var activityType : UIActivityType? {
-        return UIActivityType(rawValue: customActivityType)
+    override open var activityType : UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: customActivityType)
     }
     
     override open var activityTitle : String? {
