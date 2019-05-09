@@ -34,11 +34,17 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
     }
     
     @IBAction func showWithRemoteImagesTapped(_ sender: UIButton) {
+        let imagesURLs = [
+            "https://raw.githubusercontent.com/gmunhoz/CollieGallery/master/Example/CollieGallery/Images.xcassets/1.imageset/1.jpg",
+            "https://raw.githubusercontent.com/gmunhoz/CollieGallery/master/Example/CollieGallery/Images.xcassets/2.imageset/2.jpg",
+            "https://raw.githubusercontent.com/gmunhoz/CollieGallery/master/Example/CollieGallery/Images.xcassets/3.imageset/3.jpg",
+            "https://raw.githubusercontent.com/gmunhoz/CollieGallery/master/Example/CollieGallery/Images.xcassets/4.imageset/4.jpg",
+            "https://raw.githubusercontent.com/gmunhoz/CollieGallery/master/Example/CollieGallery/Images.xcassets/5.imageset/5.jpg"
+        ]
         var pictures = [CollieGalleryPicture]()
 
-        for i in 1 ..< 6 {
-            let url = "http://gmunhoz.com/public/controls/CollieGallery/images/\(i).jpg"
-            let picture = CollieGalleryPicture(url: url, placeholder: nil, title: "Remote Image \(i)", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies felis id eros commodo interdum. Curabitur ornare semper aliquet. Curabitur sit amet est condimentum, scelerisque turpis vitae, tempus nulla. Nulla facilisi. Sed faucibus dictum elit, vitae tempus felis luctus eu. Ut in lacus ante. Duis egestas mauris in lacus gravida aliquet.")
+        for (i, imageURL) in imagesURLs.enumerated() {
+            let picture = CollieGalleryPicture(url: imageURL, placeholder: nil, title: "Remote Image \(i)", caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies felis id eros commodo interdum. Curabitur ornare semper aliquet. Curabitur sit amet est condimentum, scelerisque turpis vitae, tempus nulla. Nulla facilisi. Sed faucibus dictum elit, vitae tempus felis luctus eu. Ut in lacus ante. Duis egestas mauris in lacus gravida aliquet.")
             pictures.append(picture)
         }
         
@@ -65,7 +71,11 @@ class ViewController: UIViewController, CollieGalleryZoomTransitionDelegate, Col
         }
         
         options.customActions = [customAction]
-        options.excludedActions = [UIActivityType.assignToContact, UIActivityType.copyToPasteboard, UIActivityType.print]
+        options.excludedActions = [
+            UIActivity.ActivityType.assignToContact,
+            UIActivity.ActivityType.copyToPasteboard,
+            UIActivity.ActivityType.print
+        ]
         
         let gallery = CollieGallery(pictures: pictures, options: options)
         gallery.delegate = self
