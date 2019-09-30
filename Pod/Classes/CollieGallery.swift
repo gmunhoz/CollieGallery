@@ -421,10 +421,10 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     
     fileprivate func getScrollViewFrame(_ avaiableSize: CGSize) -> CGRect {
         let x: CGFloat = -options.gapBetweenPages
-        let y: CGFloat = 0.0
+        let y: CGFloat = getTopPadding() //default value is 'zero' top view (it will show close and share button iphoneX)
         let width: CGFloat = avaiableSize.width + options.gapBetweenPages
-        let height: CGFloat = avaiableSize.height
-        
+        let height: CGFloat = avaiableSize.height - getTopPadding() // minus padding helps you will get image in view  correct form
+
         return CGRect(x: x, y: y, width: width, height: height)
     }
     
@@ -498,17 +498,26 @@ open class CollieGallery: UIViewController, UIScrollViewDelegate, CollieGalleryV
     }
     
     fileprivate func getCloseButtonFrame(_ avaiableSize: CGSize) -> CGRect {
-        return CGRect(x: 0, y: 0, width: 50, height: 50)
+        return CGRect(x: 0, y: getTopPadding(), width: 50, height: 50)
     }
     
     fileprivate func getActionButtonFrame(_ avaiableSize: CGSize) -> CGRect {
-        return CGRect(x: avaiableSize.width - 50, y: 0, width: 50, height: 50)
+        return CGRect(x: avaiableSize.width - 50, y: getTopPadding(), width: 50, height: 50)
     }
     
     fileprivate func getCustomButtonFrame(_ avaiableSize: CGSize, forIndex index: Int) -> CGRect {
         let position = index + 2
         
-        return CGRect(x: avaiableSize.width - CGFloat(50 * position), y: 0, width: 50, height: 50)
+        return CGRect(x: avaiableSize.width - CGFloat(50 * position), y: getTopPadding(), width: 50, height: 50)
+    }
+    
+    fileprivate func getTopPadding() -> CGFloat{
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            // with notch: 44.0 on iPhone X, XS, XS Max, XR.
+            // without notch: 24.0 on iPad Pro 12.9" 3rd generation, 20.0 on iPhone 8 on iOS 12+.
+            return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0
+        }
+        return 0
     }
     
     fileprivate func updateCaptionText () {
